@@ -14,4 +14,5 @@ messages = [
 inputs = tokenizer.apply_chat_template(messages, return_tensors="pt").to("cuda")
 
 outputs = model.generate(inputs, max_new_tokens=20)
-print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+with open("output.txt", "a") as f:
+    print(tokenizer.decode(outputs[0], skip_special_tokens=True), file = f)
