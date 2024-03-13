@@ -7,7 +7,7 @@
 #SBATCH --time=00:10:00          # total run time limit (HH:MM:SS)
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
-#SBATCH --mail-user=<YourNetID>@princeton.edu
+#SBATCH --mail-user=ca2992@princeton.edu
 
 module purge
 module load anaconda3/2024.2
