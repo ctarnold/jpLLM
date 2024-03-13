@@ -5,7 +5,7 @@ model_id = "/scratch/gpfs/ca2992/Mixtral-8x7B-Instruct-v0.1"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto", 
-                                             low_cpu_mem_usage=True, load_in_4bit=True)
+                                             low_cpu_mem_usage=True)
 
 messages = [
     {"role": "user", "content": "What is your favourite condiment?"},
