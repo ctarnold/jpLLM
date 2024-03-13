@@ -13,4 +13,6 @@ module purge
 module load anaconda3/2024.2
 conda activate pytools-env
 
+pip3 install transformers
+
 python mistalPrompting.py
