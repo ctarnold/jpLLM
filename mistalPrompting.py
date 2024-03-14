@@ -1,5 +1,6 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers import BitsAndBytesConfig
+import torch
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_id = "/scratch/gpfs/ca2992/Mixtral-8x7B-Instruct-v0.1"
