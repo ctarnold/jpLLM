@@ -1,6 +1,7 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers import BitsAndBytesConfig
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_id = "/scratch/gpfs/ca2992/Mixtral-8x7B-Instruct-v0.1"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
@@ -14,7 +15,7 @@ messages = [
 ]
 
 
-inputs = tokenizer.apply_chat_template(messages, return_tensors="pt").to("cuda")
+inputs = tokenizer.apply_chat_template(messages, return_tensors="pt").to(device)
 
 outputs = model.generate(inputs, max_new_tokens=20)
 with open("output.txt", "a") as f:
