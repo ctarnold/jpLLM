@@ -19,6 +19,5 @@ messages = [
 inputs = tokenizer.apply_chat_template(messages, return_tensors="pt").to(device)
 
 outputs = model.generate(inputs, max_new_tokens=128)
-with open("output.txt", "a") as f:
-    for i in outputs:
-        print(tokenizer.decode(outputs[i], skip_special_tokens=True), file = f)
+with open("output.txt", "a") as f:    
+    print(tokenizer.decode(outputs[0], skip_special_tokens=True), file = f)
