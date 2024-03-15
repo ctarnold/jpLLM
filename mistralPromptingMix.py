@@ -10,9 +10,9 @@ model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto",
                                              low_cpu_mem_usage=True)
 
 messages = [
-    {"role": "user", "content": "¿Cuál es su salsa favorita?"},
-    {"role": "assistant", "content": "Well, I'm quite partial to a good squeeze of fresh lemon juice. It adds just the right amount of zesty flavour to whatever I'm cooking up in the kitchen!"},
-    {"role": "user", "content": "¿Tenés recetas de mayonaisse?"}
+    {"role": "user", "content": "¿Cuál es su condiment favorita?"},
+    {"role": "user", "content": "¿Tenés a recipe de mayonaisse?"},
+    {"role": "user", "content": "Necesito ayuda cocinar algo para mi familia."}
 ]
 
 
