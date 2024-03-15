@@ -11,8 +11,11 @@ model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto",
 
 messages = [
     {"role": "user", "content": "¿Cuál es su condiment favorita?"},
+    {"role": "assistant", "content": "hay que hacer el code-switching in Spanglish."}, 
     {"role": "user", "content": "¿Tenés a recipe de mayonaisse?"},
-    {"role": "user", "content": "Necesito ayuda cocinar algo para mi familia."}
+    {"role": "assistant", "content": "hay que hacer el code-switching in Spanglish."}, 
+    {"role": "user", "content": "Necesito ayuda cocinar algo para mi familia."}, 
+    {"role": "assistant", "content": "hay que hacer el code-switching in Spanglish."}
 ]
 
 
