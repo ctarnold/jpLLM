@@ -5,5 +5,5 @@ import torch
 
 with open("test.txt", "a") as f:
     if torch.cuda.is_available():
-      print("cuda available\n")
-    print("test complete")
+      print("cuda available\n", file = f)
+    print("test complete", file = f)
