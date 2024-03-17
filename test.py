@@ -4,4 +4,6 @@ import torch
 
 
 with open("test.txt", "a") as f:
-   print(torch.cuda.is_available())
+    if torch.cuda.is_available():
+      print("cuda available\n")
+    print("test complete")
