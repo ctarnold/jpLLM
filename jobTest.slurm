@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=Mix         # create a short name for your job
+#SBATCH --job-name=mistralTest2         # create a short name for your job
 #SBATCH --nodes=1                # node count
 #SBATCH --ntasks=1               # total number of tasks across all nodes
 #SBATCH --cpus-per-task=1        # cpu-cores per task (>1 if multi-threaded tasks)
-#SBATCH --mem-per-cpu=190G        # memory per cpu-core (4G is default)
+#SBATCH --mem-per-cpu=1G        # memory per cpu-core (4G is default)
 #SBATCH --gres=gpu:1             # of gpus per node
-#SBATCH --time=00:30:00          # total run time limit (HH:MM:SS)
+#SBATCH --time=00:01:00          # total run time limit (HH:MM:SS)
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
 #SBATCH --mail-user=ca2992@princeton.edu
@@ -15,4 +15,4 @@ module load anaconda3/2024.2
 module load cudatoolkit/12.2
 conda activate jpllm2
 
-python mistralPromptingMix.py
+python test.py
