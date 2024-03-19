@@ -8,4 +8,5 @@ model = AutoModelForTokenClassification.from_pretrained("/scratch/gpfs/ca2992/co
 lid_model = pipeline('ner', model=model, tokenizer=tokenizer)
 
 with open("lidout.txt", "a") as f:
-    print(lid_model(text), file = f)
+    print(lid_model(text)[0], file = f)
+ 
