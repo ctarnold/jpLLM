@@ -1,16 +1,10 @@
-from codeswitch.codeswitch import LanguageIdentification
-lid = LanguageIdentification('spa-eng') 
-# for hindi-english use 'hin-eng', 
-# for nepali-english use 'nep-eng'
-with open("codeswitchTest.txt") as out:
-    text1 = "me dice ella que trabaja en una tienda de furniture." # your code-mixed sentence 
-    result = lid.identify(text1)
-    print(result, file = out)
+from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline
 
-    text2 = "so anyways that's that one. this is Chris's boyfriend" # your code-mixed sentence 
-    result = lid.identify(text2)
-    print(result, file = out)
+text = "me dice ella que trabaha en una tienda de furniture, so anyways that's that one. this is Chris' boyfriend."
 
-    text3 = text1 + " " + text2
-    result = lid.identify(text3)
-    print(result, file = out)
+tokenizer = AutoTokenizer.from_pretrained("/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince")
+
+model = AutoModelForTokenClassification.from_pretrained("sagorsarker/codeswitch-spaeng-lid-lince")
+lid_model = pipeline('ner', model=model, tokenizer=tokenizer)
+
+lid_model(text)
