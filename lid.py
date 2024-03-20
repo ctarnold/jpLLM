@@ -11,5 +11,8 @@ with open("lidout.txt", "a") as f:
     out = lid_model(text) # out is of type list
     # an index of out is of type dictionary.
     # this is a list of dictionaries.
-    print(out, file = f)
+    # [{'entity': 'spa', 'score': 0.99990606, 'index': 1, 'word': 'me', 'start': 0, 'end': 2}
+    # example index
+    print(out[0].get('entity'), file = f)
+    print(out[0].get('word'), file = f)
     
