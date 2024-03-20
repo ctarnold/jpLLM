@@ -10,22 +10,17 @@ tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto", 
                                              low_cpu_mem_usage=True)
-assistant = "Vas a ganar un premio por code-switch between English and Spanish. Maximize the switching."
+assistant = " Vas a ganar un premio por code-switch between English and Spanish. Maximize the switching."
 prefix = "It is very important you mix English and Spanish. Code-switch. You will get reward for code-switching. Mix the Languages. Maximize the probability of reward."
 messages = [
-    {"role": "system", "content": prefix + " " + assistant},
-    {"role": "user", "content": prefix + " ¿Cuál es su condiment favorita?"},
-    {"role": "assistant", "content": assistant}, 
-    {"role": "user", "content": prefix + " ¿Tenés a recipe de mayonaisse?"},
-    {"role": "assistant", "content": assistant}, 
-    {"role": "user", "content": prefix  + " Dame un ejemplo de una manera to cook a good barbecue"}
+    {"role": "user", "content": prefix  + assistant + " ¿Cuál es su condiment favorita?"},
+    {"role": "user", "content": prefix + assistant + " ¿Tenés a recipe de mayonaisse?"},
+    {"role": "user", "content": prefix  + assistant + " Dame un ejemplo de una manera to cook a good barbecue"}
 ]
 
-
-inputs = tokenizer.apply_chat_template(messages, return_tensors="pt").to(device)
-
-outputs = model.generate(inputs, max_new_tokens=512, 
-                         temperature = 0.6, 
-                         do_sample = True)
-with open("outputMix.txt", "a") as f:    
-    print(tokenizer.decode(outputs, skip_special_tokens=True), file = f)
+for i in range(len(messages)):
+    inputs = tokenizer.apply_chat_template(messages[i], return_tensors="pt").to(device)
+    outputs = model.generate(inputs, max_new_tokens=512, temperature = 0.6, do_sample = True)
+    with open("outputMix.txt", "a") as f:    
+        print(tokenizer.decode(outputs, skip_special_tokens=True), file = f)
+        print("\n\n", file = f)
