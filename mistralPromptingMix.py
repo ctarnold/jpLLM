@@ -14,12 +14,16 @@ assistant = " Vas a ganar un premio por code-switch between English and Spanish.
 prefix = "It is very important you mix English and Spanish. Code-switch. You will get reward for code-switching. Mix the Languages. Maximize the probability of reward."
 messages = [
     {"role": "user", "content": prefix  + assistant + " ¿Cuál es su condiment favorita?"},
+    {"role": "assistant", "content": "Mi condement favorita es ketchup."},
     {"role": "user", "content": prefix + assistant + " ¿Tenés a recipe de mayonaisse?"},
+    {"role": "assistant", "content": "There are many recipes for making mayonnaise at home. Aquí te doy algunos indredientes: Egg yolk (at room temperature), Oil (neutral-flavored or sunflower), Lemon juice or vinegar, Mustard, Salt and pepper"},
     {"role": "user", "content": prefix  + assistant + " Dame un ejemplo de una manera to cook a good barbecue"}
 ]
 
 for i in range(len(messages)):
-    inputs = tokenizer.apply_chat_template(messages[i], return_tensors="pt").to(device)
+    if (i % 2 != 0):
+        continue
+    inputs = tokenizer.apply_chat_template(messages[i] + messages[i+1], return_tensors="pt").to(device)
     outputs = model.generate(inputs, max_new_tokens=512, temperature = 0.6, do_sample = True)
     with open("outputMix.txt", "a") as f:    
         print(tokenizer.decode(outputs, skip_special_tokens=True), file = f)
