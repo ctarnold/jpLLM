@@ -25,4 +25,4 @@ inputs = tokenizer.apply_chat_template(messages, return_tensors="pt").to(device)
 
 outputs = model.generate(inputs, max_new_tokens=256, temperature = 0.6)
 with open("outputMix.txt", "a") as f:    
-    print(tokenizer.decode(outputs[0], skip_special_tokens=True), file = f)
+    print(tokenizer.decode(outputs, skip_special_tokens=True), file = f)
