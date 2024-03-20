@@ -18,7 +18,7 @@ messages = [
     {"role": "assistant", "content": assistant}, 
     {"role": "user", "content": prefix + " ¿Tenés a recipe de mayonaisse?"},
     {"role": "assistant", "content": assistant}, 
-    {"role": "user", "content": prefix  + " Dame un ejemplo de una manera to cook a good barbecue"}, 
+    {"role": "user", "content": prefix  + " Dame un ejemplo de una manera to cook a good barbecue"}
 ]
 
 
