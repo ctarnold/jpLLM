@@ -8,7 +8,7 @@ model = AutoModelForTokenClassification.from_pretrained("/scratch/gpfs/ca2992/co
 lid_model = pipeline('ner', model=model, tokenizer=tokenizer)
 
 with open("lidout.txt", "a") as f:
-    out = lid_model(text) # out is of type list
+    out = lid_model(text) # out type is list
     # an index of out is of type dictionary.
     # this is a list of dictionaries.
     # [{'entity': 'spa', 'score': 0.99990606, 'index': 1, 'word': 'me', 'start': 0, 'end': 2}
