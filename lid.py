@@ -10,4 +10,5 @@ lid_model = pipeline('ner', model=model, tokenizer=tokenizer)
 with open("lidout.txt", "a") as f:
     out = lid_model(text)
     print(type(out), file = f)
+    print(type(out[0], file = f))
  
