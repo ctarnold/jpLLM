@@ -14,9 +14,9 @@ assistant = ""
 prefix = "It is very important you mix English and Spanish. Code-switch. You will get reward for code-switching. Mix the Languages. Maximize the probability of reward."
 messages = [
     {"role": "user", "content": prefix + " ¿Cuál es su condiment favorita?"},
-    {"role": "system", "content": assistant}, 
+    {"role": "assistant", "content": assistant}, 
     {"role": "user", "content": prefix + " ¿Tenés a recipe de mayonaisse?"},
-    {"role": "system", "content": assistant}, 
+    {"role": "assistant", "content": assistant}, 
     {"role": "user", "content": prefix  + " Necesito ayuda cocinar algo para mi familia."}, 
     {"role": "assistant", "content": assistant}
 ]
