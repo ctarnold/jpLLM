@@ -20,7 +20,6 @@ messages = [
     {"role": "user", "content": prefix  + assistant + " Dame un ejemplo de una manera to cook a good barbecue"}
 ]
 
-
 inputs = tokenizer.apply_chat_template(messages, return_tensors="pt").to(device)
 outputs = model.generate(inputs, max_new_tokens=512, temperature = 0.6, do_sample = True)
 with open("outputMix.txt", "a") as f:    
