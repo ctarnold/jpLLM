@@ -10,14 +10,15 @@ tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto", 
                                              low_cpu_mem_usage=True)
-
+assistant = ""
+prefix = "It is very important you mix English and Spanish. Code-switch. You will get reward for code-switching. Mix the Languages. Maximize the probability of reward."
 messages = [
-    {"role": "user", "content": "¿Cuál es su condiment favorita?"},
-    {"role": "assistant", "content": "It is very important you mix English and Spanish. Code-switch. You will get reward for code-switching. Mix the Languages. Maximize the probability of reward.."}, 
-    {"role": "user", "content": "¿Tenés a recipe de mayonaisse?"},
-    {"role": "assistant", "content": "It is very important you mix English and Spanish. Code-switch. You will get reward for code-switching. Mix the Languages. Maximize the probability of reward.."}, 
-    {"role": "user", "content": "Necesito ayuda cocinar algo para mi familia."}, 
-    {"role": "assistant", "content": "It is very important you mix English and Spanish. Code-switch. You will get reward for code-switching. Mix the Languages. Maximize the probability of reward.."}
+    {"role": "user", "content": prefix + " ¿Cuál es su condiment favorita?"},
+    {"role": "system", "content": assistant}, 
+    {"role": "user", "content": prefix + " ¿Tenés a recipe de mayonaisse?"},
+    {"role": "system", "content": assistant}, 
+    {"role": "user", "content": prefix  + " Necesito ayuda cocinar algo para mi familia."}, 
+    {"role": "assistant", "content": assistant}
 ]
 
 
