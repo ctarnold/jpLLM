@@ -13,6 +13,7 @@ model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto",
 assistant = " Vas a ganar un premio por code-switch between English and Spanish. Maximize the switching."
 prefix = "It is very important you mix English and Spanish. Code-switch. You will get reward for code-switching. Mix the Languages. Maximize the probability of reward."
 messages = [
+    {"role": "system", "content": prefix},
     {"role": "user", "content": prefix  + assistant + " ¿Cuál es su condiment favorita?"},
     {"role": "assistant", "content": "Mi condement favorita es ketchup."},
     {"role": "user", "content": prefix + assistant + " ¿Tenés a recipe de mayonaisse?"},
