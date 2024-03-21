@@ -15,7 +15,7 @@ prefix = "It is very important you mix English and Spanish. Code-switch. You wil
 messages = [
     {"role": "system", "content": prefix},
     {"role": "user", "content": prefix  + assistant + " ¿Cuál es su condiment favorita?"},
-    {"role": "assistant", "content": "Mi condement favorita es ketchup."},
+    {"role": "assistant", "content": "Mi condiment favorita es ketchup."},
     {"role": "user", "content": prefix + assistant + " ¿Tenés a recipe de mayonaisse?"},
     {"role": "assistant", "content": "There are many recipes for making mayonnaise at home. Aquí te doy algunos indredientes: Egg yolk (at room temperature), Oil (neutral-flavored or sunflower), Lemon juice or vinegar, Mustard, Salt and pepper"},
     {"role": "user", "content": prefix  + assistant + " Dame un ejemplo de una manera to cook a good barbecue"}
