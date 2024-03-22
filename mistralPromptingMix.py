@@ -15,7 +15,11 @@ messages = [
     {"role": "user", "content": "Escribeme un cuento que tiene palabras mezcladas between English and Spanish"}
 ]
 
+# specify padding
+if tokenizer.pad_token is None:
+            tokenizer.pad_token = tokenizer.eos_token
+
 inputs = tokenizer.apply_chat_template(messages, return_tensors="pt").to(device)
-outputs = model.generate(inputs, max_new_tokens=512, temperature = 0.6, do_sample = True)
+outputs = model.generate(inputs, max_new_tokens=512, temperature = 0.6, do_sample = True, pad_token_id=tokenizer.pad_token_id)
 with open("outputMix.txt", "a") as f:    
     print(tokenizer.decode(outputs[0], skip_special_tokens=True), file = f)
