@@ -2,10 +2,13 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_id = "/scratch/gpfs/ca2992/Mixtral-8x7B-v0.1"
-model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float16, attn_implementation="flash_attention_2", device_map="auto")
+model = AutoModelForCausalLM.from_pretrained(model_id, 
+                                             torch_dtype=torch.float16, 
+                                             attn_implementation="flash_attention_2", 
+                                             device_map="auto")
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
-prefix = "Answer this prompt as a bilingual English/Spanish Miami speaker. "
+prefix = "Answer this prompt as a bilingual English/Spanish Miami speaker who code-switches:"
 prompt = "Escribeme un cuento que tiene palabras mezcladas between English and Spanish."
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -15,7 +18,10 @@ with open("stderr", "a") as e:
 
 model_inputs = tokenizer([prefix + prompt], return_tensors="pt").to(device)
 
-generated_ids = model.generate(**model_inputs, max_new_tokens=512, do_sample=True)
+generated_ids = model.generate(**model_inputs, 
+                               max_new_tokens=200, 
+                               temperature = 0.7, 
+                               do_sample=True)
 
 
 with open("outputZero.txt", "a") as f:    
