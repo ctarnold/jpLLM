@@ -14,7 +14,6 @@ with open("stderr", "a") as e:
 
 
 model_inputs = tokenizer([prefix + prompt], return_tensors="pt").to(device)
-model.to(device)
 
 generated_ids = model.generate(**model_inputs, max_new_tokens=100, do_sample=True)
 
