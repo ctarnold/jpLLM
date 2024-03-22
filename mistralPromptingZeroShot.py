@@ -19,7 +19,7 @@ with open("stderr", "a") as e:
 model_inputs = tokenizer([prefix + prompt], return_tensors="pt").to(device)
 
 generated_ids = model.generate(**model_inputs, 
-                               max_new_tokens=200, 
+                               max_new_tokens=512, 
                                temperature = 0.7, 
                                do_sample=True)
 
