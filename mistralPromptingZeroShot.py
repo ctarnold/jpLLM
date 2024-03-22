@@ -20,7 +20,8 @@ model_inputs = tokenizer([prefix + prompt], return_tensors="pt").to(device)
 
 generated_ids = model.generate(**model_inputs, 
                                max_new_tokens=512, 
-                               do_sample=True)
+                               do_sample=True,
+                               repeat_penalty = 1.1)
 
 
 with open("outputZero.txt", "a") as f:    
