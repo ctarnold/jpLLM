@@ -15,10 +15,10 @@ with open("stderr", "a") as e:
 
 model_inputs = tokenizer([prefix + prompt], return_tensors="pt").to(device)
 
-generated_ids = model.generate(**model_inputs, max_new_tokens=100, do_sample=True)
+generated_ids = model.generate(**model_inputs, max_new_tokens=200, do_sample=True)
 
 
 with open("outputZero.txt", "a") as f:    
-    print(tokenizer.batch_decode(generated_ids[0], skip_special_tokens=True), file = f)
+    print(tokenizer.decode(generated_ids[0], skip_special_tokens=True), file = f)
 
 # from https://huggingface.co/docs/transformers/main/model_doc/mixtral
