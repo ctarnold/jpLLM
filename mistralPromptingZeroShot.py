@@ -16,7 +16,7 @@ with open("stderr", "a") as e:
     print(torch.cuda.is_available(), file = e)
 
 
-model_inputs = tokenizer([prefix + prompt], return_tensors="pt").to(device)
+model_inputs = tokenizer.apply_chat_template([prefix + prompt], return_tensors="pt").to(device)
 
 generated_ids = model.generate(**model_inputs, 
                                max_new_tokens=512, 
