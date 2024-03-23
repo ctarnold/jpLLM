@@ -18,7 +18,8 @@ with open("stderr", "a") as e:
     print(torch.cuda.is_available(), file = e)
 
 messages = [
-    {"role": "user", "content": prefix + prompt}
+    {"role": "user", "content": prefix + prompt},
+    {"role": "assistant", "content": ""}
 ]
 
 model_inputs = tokenizer.apply_chat_template([messages], return_tensors="pt").to(device)
