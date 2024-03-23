@@ -16,12 +16,13 @@ with open("stderr", "a") as e:
     print(torch.cuda.is_available(), file = e)
 
 
-model_inputs = tokenizer([prompt], return_tensors="pt").to(device)
+model_inputs = tokenizer([prefix + prompt], return_tensors="pt").to(device)
 
 generated_ids = model.generate(**model_inputs, 
                                max_new_tokens=512, 
                                do_sample=True,
-                               no_repeat_ngram_size = 5) 
+                               no_repeat_ngram_size = 5,
+                               temperature = 0.6) 
 # do not repeat >=5-grams
 
 
