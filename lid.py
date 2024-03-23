@@ -7,12 +7,27 @@ tokenizer = AutoTokenizer.from_pretrained("/scratch/gpfs/ca2992/codeswitch-spaen
 model = AutoModelForTokenClassification.from_pretrained("/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince")
 lid_model = pipeline('ner', model=model, tokenizer=tokenizer)
 
+out = lid_model(text)
+
+
+spaCount = 0
+engCount = 0
+otherCount = 0
+for i in range(len(out)):
+    language = out[i].get('entity')
+    if (language == 'spa'):
+        spaCount += 1
+    if (language == 'eng'):
+        engCount += 1
+    if (language != 'eng' and language != 'spa'):
+        otherCount += 1
+
 with open("lidout.txt", "a") as f:
-    out = lid_model(text) # out type is list
-    # an index of out is of type dictionary.
-    # this is a list of dictionaries.
-    # [{'entity': 'spa', 'score': 0.99990606, 'index': 1, 'word': 'me', 'start': 0, 'end': 2}
-    # example index
-    print(out[0].get('entity'), file = f)
-    print(out[0].get('word'), file = f)
+    print(spaCount, file = f)
+    print(" Spanish Count\n", file = f)
+    print(engCount, file = f)
+    print(" English Count\n", file = f)
+    print(otherCount, file = f)
+    print(" Other Count\n", file = f)
+    
     
