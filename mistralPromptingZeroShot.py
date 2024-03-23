@@ -18,6 +18,7 @@ with open("stderr", "a") as e:
     print(torch.cuda.is_available(), file = e)
 
 messages = [
+    {"role": "user", "content": prompt}, 
     {"role": "assistant", "content": prefix},
     {"role": "user", "content": prompt}
 ]
@@ -25,10 +26,11 @@ messages = [
 model_inputs = tokenizer.apply_chat_template([messages], return_tensors="pt").to(device)
 
 generated_ids = model.generate(**model_inputs, 
-                               max_new_tokens=512, 
+                               max_new_tokens=30, 
                                do_sample=True,
                                no_repeat_ngram_size = 5,
-                               temperature = 0.6) 
+                               temperature = 0.6,
+                               safe_mode = True) 
 # do not repeat >=5-grams
 
 
