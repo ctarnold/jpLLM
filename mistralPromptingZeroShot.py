@@ -9,7 +9,7 @@ model = AutoModelForCausalLM.from_pretrained(model_id,
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 
-prefix = "Answer this prompt as a bilingual English/Spanish Miami speaker who code-switches:"
+prefix = "I am an assistant that code-switches entre español e inglés como los que viven en Miami, in the United States."
 prompt = "Escribeme un cuento que tiene palabras mezcladas between English and Spanish."
 
 
@@ -18,8 +18,8 @@ with open("stderr", "a") as e:
     print(torch.cuda.is_available(), file = e)
 
 messages = [
-    {"role": "user", "content": prefix + prompt},
-    {"role": "assistant", "content": ""}
+    {"role": "assistant", "content": prefix},
+    {"role": "user", "content": prompt}
 ]
 
 model_inputs = tokenizer.apply_chat_template([messages], return_tensors="pt").to(device)
