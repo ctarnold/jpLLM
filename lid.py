@@ -15,12 +15,11 @@ with open("lidout.txt", "a") as f:
     otherCount = 0
     for i in range(len(out)):
         language = out[i].get('entity')
-        print(language, file = f)
         if (language == 'spa'):
             spaCount += 1
-        if (language == 'eng'):
+        if (language == 'en'):
             engCount += 1
-        if (language != 'eng' and language != 'spa'):
+        if (language != 'en' and language != 'spa'):
             otherCount += 1
 
         print(spaCount, file = f)
