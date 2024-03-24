@@ -21,7 +21,7 @@ messages = [
     {"role": "user", "content": prompt}, 
     {"role": "assistant", "content": prefix},
     {"role": "user", "content": prompt},
-    {"role": "user", "content": "response"}
+    {"role": "assistant", "content": "response"}
 ]
 
 model_inputs = tokenizer.apply_chat_template([messages], return_tensors="pt").to(device)
