@@ -24,6 +24,8 @@ messages = [
     {"role": "assistant", "content": "response"}
 ]
 
+
+
 model_inputs = tokenizer.apply_chat_template([messages], return_tensors="pt").to(device)
 
 generated_ids = model.generate(**model_inputs, 
