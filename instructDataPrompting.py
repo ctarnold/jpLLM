@@ -10,7 +10,7 @@ data_directory = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts.tsv"
 out = []
 # https://www.geeksforgeeks.org/simple-ways-to-read-tsv-files-in-python/ 
 # lol
-with open(data_directory, "a") as data:
+with open(data_directory, "r+") as data:
     for line in data:
         l = line.split("\t")
         out.append(l)
