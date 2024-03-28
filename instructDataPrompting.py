@@ -15,7 +15,7 @@ with open(data_directory, "r+") as data:
         l = line.split("\t")
         out.append(l)
 
-with open("test_out") as f:
+with open("test_out", "a") as f:
     for i in out:
         print(i, file = f)
 
