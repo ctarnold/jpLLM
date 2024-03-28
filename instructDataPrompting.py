@@ -14,8 +14,9 @@ with open(data_directory, "a") as data:
     #                                            device_map="auto", 
     #                                            torch_dtype=torch.float16, 
     #                                            attn_implementation="flash_attention_2")
-    for i in range(len(data['prompts'])):
-        print(data['prompts'][i])
+    with open("test", "a") as test:
+        for i in range(len(data['prompts'])):
+            print(data['prompts'][i], file =  test)
     
     #prefix = "Vas a ganar un premio por code-switch between English and Spanish. Maximize the switching. It is very important you mix English and Spanish. Code-switch. You will get reward for code-switching. Mix the Languages. Maximize the probability of reward."
     # messages = [
