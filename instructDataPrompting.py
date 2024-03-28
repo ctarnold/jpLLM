@@ -12,7 +12,7 @@ out = []
 # lol
 with open(data_directory, "r+") as data:
     for line in data:
-        out.append(line['prompts'])
+        out.append(line[1])
 
 with open("test_out", "a") as f:
     for i in out:
