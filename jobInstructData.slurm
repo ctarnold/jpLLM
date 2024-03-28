@@ -12,7 +12,7 @@
 
 module purge
 module load anaconda3/2024.2
-module load cudatoolkit/12.2
+
 conda activate jpllm2
 
 python instructDataPrompting.py
