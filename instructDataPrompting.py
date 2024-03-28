@@ -13,7 +13,7 @@ out = []
 with open(data_directory, "r+") as data:
     for line in data:
         l = line.split("\t")
-        out.append(line[1])
+        out.append(line)
 
 with open("test_out", "a") as f:
     for i in out:
