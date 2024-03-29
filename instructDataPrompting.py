@@ -6,7 +6,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_id = "/scratch/gpfs/ca2992/Mixtral-8x7B-v0.1"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 data_read_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts.tsv"
-data_write_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts_out.tsv"
+data_write_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts_copy.tsv"
 messages = []
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
