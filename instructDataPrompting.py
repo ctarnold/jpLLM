@@ -40,7 +40,7 @@ for message in messages:
         do_sample = True, pad_token_id=tokenizer.pad_token_id, 
          no_repeat_ngram_size = 5)
 
-    with open("outputPrompts.txt", "a") as f:   
+    with open("outputPrompts1.txt", "a") as f:   
         output = tokenizer.decode(outputs[0], 
                                 skip_special_tokens=True) + "\n" 
         print(output, file = f)
