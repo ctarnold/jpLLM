@@ -38,7 +38,7 @@ for message in messages:
     outputs = model.generate(
         inputs, max_new_tokens=30, temperature = 0.6, 
         do_sample = True, pad_token_id=tokenizer.pad_token_id, 
-         no_repeat_ngram_size = 5, safe_mode = True)
+         no_repeat_ngram_size = 5)
 
     with open("outputPrompts.txt", "a") as f:   
         output = tokenizer.decode(outputs[0], 
