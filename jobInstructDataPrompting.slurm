@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --job-name=instructDataPrompting # create a short name for your job
-#SBATCH --nodes=2                # node count
+#SBATCH --nodes=1                # node count
 #SBATCH --ntasks=2               # total number of tasks across all nodes
 #SBATCH --cpus-per-task=1        # cpu-cores per task (>1 if multi-threaded tasks)
 #SBATCH --mem-per-cpu=190G       # memory per cpu-core (4G is default)
-#SBATCH --gres=gpu:1             # of gpus per node
+#SBATCH --gres=gpu:2             # of gpus per node
 #SBATCH --time=01:00:00          # total run time limit (HH:MM:SS)
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
