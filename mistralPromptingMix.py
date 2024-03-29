@@ -22,6 +22,6 @@ if tokenizer.pad_token is None:
             tokenizer.pad_token = tokenizer.eos_token
 
 inputs = tokenizer.apply_chat_template(messages, return_tensors="pt").to(device)
-outputs = model.generate(inputs, max_new_tokens=30, seed = 123, temperature = 0.6, do_sample = True, pad_token_id=tokenizer.pad_token_id)
+outputs = model.generate(inputs, max_new_tokens=30, temperature = 0.6, do_sample = True, pad_token_id=tokenizer.pad_token_id)
 with open("outputMix.txt", "a") as f:    
     print(tokenizer.decode(outputs[0], skip_special_tokens=True), file = f)
