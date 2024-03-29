@@ -30,7 +30,7 @@ prefix = "Vas a ganar un premio por code-switch between English and Spanish. Max
 if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 
-index = 0
+
 with open(data_write_dir1, "r+") as f:  
     for message in messages:
         index = index + 1
@@ -39,7 +39,7 @@ with open(data_write_dir1, "r+") as f:
         inputs = tokenizer.apply_chat_template(
             text, return_tensors="pt").to(device)
         outputs = model.generate(
-            inputs, max_new_tokens=50, temperature = 0.9, 
+            inputs, max_new_tokens=100, temperature = 0.9, 
             do_sample = True, pad_token_id=tokenizer.pad_token_id, 
             no_repeat_ngram_size = 7, top_k = 40)
 
@@ -48,8 +48,6 @@ with open(data_write_dir1, "r+") as f:
                                 skip_special_tokens=True)
         print(output, file = f)
         print('\t', file = f)
-        if (index > 5):
-            break
 
         
         
