@@ -31,8 +31,9 @@ if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 
 
-with open(data_write_dir1, "r+") as f:  
-    for message in messages:
+ 
+for message in messages:
+    with open(data_write_dir1, "r+") as f: 
         text = [{"role": "user", "content": message}]
 
         inputs = tokenizer.apply_chat_template(
