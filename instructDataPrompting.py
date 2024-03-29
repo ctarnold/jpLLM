@@ -3,7 +3,7 @@ import torch
 import pandas as pd
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model_id = "/scratch/gpfs/ca2992/Mixtral-8x7B-v0.1"
+model_id = "/scratch/gpfs/ca2992/Mixtral-8x7B-Instruct-v0.1"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 data_read_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts.tsv"
 data_write_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts_copy.tsv"
@@ -39,13 +39,13 @@ with open(data_write_dir1, "r+") as f:
         inputs = tokenizer.apply_chat_template(
             text, return_tensors="pt").to(device)
         outputs = model.generate(
-            inputs, max_new_tokens=50, temperature = 0.8, 
+            inputs, max_new_tokens=50, temperature = 0.9, 
             do_sample = True, pad_token_id=tokenizer.pad_token_id, 
-            no_repeat_ngram_size = 5, top_k = 20)
+            no_repeat_ngram_size = 7, top_k = 40)
 
         
         output = tokenizer.decode(outputs[0], 
-                                skip_special_tokens=True) + "\n" 
+                                skip_special_tokens=True)
         print(output, file = f)
         print('\t', file = f)
         if (index > 5):
