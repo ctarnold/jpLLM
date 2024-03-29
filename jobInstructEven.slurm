@@ -15,4 +15,4 @@ module load anaconda3/2024.2
 
 conda activate jpllm2
 
-python instructDataPrompting.py
+python instructDataPromptingEven.py
