@@ -33,7 +33,6 @@ if tokenizer.pad_token is None:
 
 with open(data_write_dir1, "r+") as f:  
     for message in messages:
-        index = index + 1
         text = [{"role": "user", "content": message}]
 
         inputs = tokenizer.apply_chat_template(
