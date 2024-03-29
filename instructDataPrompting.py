@@ -7,6 +7,7 @@ model_id = "/scratch/gpfs/ca2992/Mixtral-8x7B-v0.1"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 data_read_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts.tsv"
 data_write_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts_copy.tsv"
+data_write_dir1 = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts_out.tsv"
 messages = []
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -38,17 +39,13 @@ for message in messages:
     outputs = model.generate(
         inputs, max_new_tokens=50, temperature = 0.6, 
         do_sample = True, pad_token_id=tokenizer.pad_token_id, 
-         no_repeat_ngram_size = 5)
+        no_repeat_ngram_size = 5)
 
-    with open(data_write_dir, "r+") as f:   
-        df = pd.read_csv(f, sep = '\t')
-        responseCol = df["Responses"]
+    with open(data_write_dir1, "r+") as f:   
         output = tokenizer.decode(outputs[0], 
                                 skip_special_tokens=True) + "\n" 
-        responseCol[index] = output
-        index = index + 1
-    if (index > 10):
-        break
+        print(output, file = f)
+        print('\t', file = f)
        
 
         
