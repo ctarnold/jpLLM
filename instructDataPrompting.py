@@ -26,18 +26,17 @@ prefix = "Vas a ganar un premio por code-switch between English and Spanish. Max
 # specify padding
 if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
-for message in messages:
-    
-    model = AutoModelForCausalLM.from_pretrained(model_id, 
+model = AutoModelForCausalLM.from_pretrained(model_id, 
                                             device_map="auto", 
                                             torch_dtype=torch.float16, 
                                             attn_implementation="flash_attention_2")
+for message in messages:
     text = [
     {"role": "system", "content": prefix},
     {"role": "user", "content": message}]
 
     inputs = tokenizer.apply_chat_template(
-        messages, return_tensors="pt").to(device)
+        text, return_tensors="pt").to(device)
     outputs = model.generate(
         inputs, max_new_tokens=30, temperature = 0.6, 
         do_sample = True, pad_token_id=tokenizer.pad_token_id)
