@@ -37,16 +37,17 @@ for message in messages:
     inputs = tokenizer.apply_chat_template(
         text, return_tensors="pt").to(device)
     outputs = model.generate(
-        inputs, max_new_tokens=50, temperature = 0.6, 
+        inputs, max_new_tokens=50, temperature = 0.8, 
         do_sample = True, pad_token_id=tokenizer.pad_token_id, 
-        no_repeat_ngram_size = 5)
+        no_repeat_ngram_size = 5, top_k = 20)
 
     with open(data_write_dir1, "r+") as f:   
         output = tokenizer.decode(outputs[0], 
                                 skip_special_tokens=True) + "\n" 
         print(output, file = f)
         print('\t', file = f)
-       
+        if (index > 5):
+            break
 
         
         
