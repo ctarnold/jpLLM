@@ -47,7 +47,7 @@ for message in messages:
         responseCol = df["Responses"]
         output = tokenizer.decode(outputs[0], 
                                 skip_special_tokens=True) + "\n" 
-        responseCol.append(output)
+        responseCol[index] = output
         index = index + 1
     if (index > 10):
         break
