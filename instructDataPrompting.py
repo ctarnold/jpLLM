@@ -31,15 +31,14 @@ model = AutoModelForCausalLM.from_pretrained(model_id,
                                             torch_dtype=torch.float16, 
                                             attn_implementation="flash_attention_2")
 for message in messages:
-    text = [
-    {"role": "system", "content": prefix},
-    {"role": "user", "content": message}]
+    text = [{"role": "user", "content": message}]
 
     inputs = tokenizer.apply_chat_template(
         text, return_tensors="pt").to(device)
     outputs = model.generate(
         inputs, max_new_tokens=30, temperature = 0.6, 
-        do_sample = True, pad_token_id=tokenizer.pad_token_id)
+        do_sample = True, pad_token_id=tokenizer.pad_token_id, 
+         no_repeat_ngram_size = 5, safe_mode = True)
 
     with open("outputPrompts.txt", "a") as f:   
         output = tokenizer.decode(outputs[0], 
