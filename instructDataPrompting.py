@@ -1,18 +1,19 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
-import pandas
+import pandas as pd
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_id = "/scratch/gpfs/ca2992/Mixtral-8x7B-v0.1"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
-data_directory = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts.tsv"
+data_read_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts.tsv"
+data_write_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts_out.tsv"
 messages = []
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 with open("stderr", "a") as stderr:
     print(torch.cuda.is_available(), file = stderr)
-with open(data_directory, "r+") as data:
+with open(data_read_dir, "r+") as data:
     for line in data:
         l = line.split("\t")
         messages.append(l[1])
@@ -30,8 +31,9 @@ model = AutoModelForCausalLM.from_pretrained(model_id,
                                             device_map="auto", 
                                             torch_dtype=torch.float16, 
                                             attn_implementation="flash_attention_2")
+index = 0
 for message in messages:
-    text = [{"role": "user", "content": "[INST]" + message + "[/INST]"}]
+    text = [{"role": "user", "content": message}]
 
     inputs = tokenizer.apply_chat_template(
         text, return_tensors="pt").to(device)
@@ -40,10 +42,15 @@ for message in messages:
         do_sample = True, pad_token_id=tokenizer.pad_token_id, 
          no_repeat_ngram_size = 5)
 
-    with open("outputPrompts2.txt", "a") as f:   
+    with open(data_write_dir, "r+") as f:   
+        df = pd.read_csv(f, sep = '\t')
+        responseCol = df["Responses"]
         output = tokenizer.decode(outputs[0], 
                                 skip_special_tokens=True) + "\n" 
-        print(output, file = f)
+        responseCol.append(output)
+        index = index + 1
+    if (index > 10):
+        break
        
 
         
