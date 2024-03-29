@@ -8,12 +8,11 @@ with open("stderr", "a") as e:
 model_id = "/scratch/gpfs/ca2992/Mixtral-8x7B-v0.1"
 data_directory = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts.tsv"
 out = []
-# https://www.geeksforgeeks.org/simple-ways-to-read-tsv-files-in-python/ 
-# lol
+
 with open(data_directory, "r+") as data:
     for line in data:
         l = line.split("\t")
-        out.append(line)
+        out.append(l[1])
 
 with open("test_out", "a") as f:
     for i in out:
