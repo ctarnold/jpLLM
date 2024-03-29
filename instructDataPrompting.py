@@ -31,17 +31,18 @@ if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 
 index = 0
-for message in messages:
-    text = [{"role": "user", "content": message}]
+with open(data_write_dir1, "r+") as f:  
+    for message in messages:
+        text = [{"role": "user", "content": message}]
 
-    inputs = tokenizer.apply_chat_template(
-        text, return_tensors="pt").to(device)
-    outputs = model.generate(
-        inputs, max_new_tokens=50, temperature = 0.8, 
-        do_sample = True, pad_token_id=tokenizer.pad_token_id, 
-        no_repeat_ngram_size = 5, top_k = 20)
+        inputs = tokenizer.apply_chat_template(
+            text, return_tensors="pt").to(device)
+        outputs = model.generate(
+            inputs, max_new_tokens=50, temperature = 0.8, 
+            do_sample = True, pad_token_id=tokenizer.pad_token_id, 
+            no_repeat_ngram_size = 5, top_k = 20)
 
-    with open(data_write_dir1, "r+") as f:   
+        
         output = tokenizer.decode(outputs[0], 
                                 skip_special_tokens=True) + "\n" 
         print(output, file = f)
