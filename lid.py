@@ -32,8 +32,8 @@ with open("lidout.txt", "a") as f:
         if (i == 4):
             data = data_dir4
         messages = []
-        with open(data, "r") as data:
-            for line in data:
+        with open(data, "r") as d:
+            for line in d:
                 l = line.split("\t")
                 messages.append(l)
         for message in messages:
