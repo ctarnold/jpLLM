@@ -40,7 +40,7 @@ with open("lidout.txt", "a") as f:
             text = message
             out = lid_model(text)
             for j in range(len(out)):
-                language = out.get('entity')
+                language = out[j].get('entity')
                 if (language == 'spa'):
                     spaCount += 1
                 if (language == 'en'):
