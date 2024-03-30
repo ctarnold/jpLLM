@@ -7,7 +7,7 @@ model_id = "/scratch/gpfs/ca2992/Mixtral-8x7B-Instruct-v0.1"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 data_read_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts.tsv"
 data_write_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts_copy.tsv"
-data_write_dir1 = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts_out.tsv"
+data_write_dir1 = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts_out1.tsv"
 messages = []
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -35,7 +35,9 @@ index = 0
 with open(data_write_dir1, "r+") as f: 
     for message in messages:
         index = index + 1
-        if (index >= 40):
+        if (index < 40):
+            continue
+        if (index >= 80):
             continue
         text = [{"role": "user", "content": message}]
 
