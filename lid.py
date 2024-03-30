@@ -35,7 +35,7 @@ with open("lidout.txt", "a") as f:
         with open(data, "r") as d:
             for line in d:
                 l = line.split("\t")
-                messages.append(l)
+                messages.append(l[0])
         for message in messages:
             text = message
             out = lid_model(text)
