@@ -6,10 +6,7 @@ data_dir2 = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts_out2.tsv"
 data_dir3 = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts_out3.tsv"
 data_dir4 = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts_out4.tsv"
 
-fileNum = 0
-
-
-text = "me dice ella que trabaja en una tienda de furniture, so anyways that's that one. this is Chris' boyfriend."
+fileNum = 5
 
 tokenizer = AutoTokenizer.from_pretrained("/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince")
 
@@ -24,7 +21,6 @@ otherCount = 0
 
 with open("lidout.txt", "a") as f:
     for i in range(fileNum):
-        
         if (i == 0):
             data = data_dir
         if (i == 1):
@@ -41,6 +37,7 @@ with open("lidout.txt", "a") as f:
                 l = line.split("\t")
                 messages.append(l[1])
         for message in messages:
+            text = message
             out = lid_model(text)
             for j in range(len(out)):
                 language = out[j].get('entity')
