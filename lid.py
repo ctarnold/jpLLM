@@ -47,12 +47,13 @@ with open("lidout.txt", "a") as f:
                     engCount += 1
                 if (language != 'en' and language != 'spa'):
                     otherCount += 1
+    print(spaCount, file = f)
+    print(" Spanish Count\n", file = f)
+    print(engCount, file = f)
+    print(" English Count\n", file = f)
+    print(otherCount, file = f)
+    print(" Other Count\n", file = f)
+
     
-print(spaCount, file = f)
-print(" Spanish Count\n", file = f)
-print(engCount, file = f)
-print(" English Count\n", file = f)
-print(otherCount, file = f)
-print(" Other Count\n", file = f)
 
     
