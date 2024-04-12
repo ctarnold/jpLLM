@@ -36,3 +36,4 @@ with open(out, "a") as output:
                 posGround.append(pos)
 
 lidResult = lid_model(message)
+print(lidResult)
