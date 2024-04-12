@@ -18,6 +18,7 @@ other = 0
 message = ""
 lidGround = []
 posGround = []
+words = []
 
 def groundCompare(lidResult):
      global lidGround
@@ -32,7 +33,7 @@ def groundCompare(lidResult):
      for j in range(len(lidResult)):
         language = lidResult[j].get('entity')
         word = lidResult[j].get('word')
-
+        
         # skip tokens that are broken apart
         if (word[0] == '#'):
             continue
@@ -70,6 +71,7 @@ with open(out, "a") as output:
             message = ""
             lidGround = []
             posGround = []
+            words = []
             for line in read:
                 values = line.split()
                 # skip blank lines
@@ -79,9 +81,11 @@ with open(out, "a") as output:
                 word = values[1]
                 lid = values[2]
                 pos = values[3]
-                message += (" " + word)
-                lidGround.append(lid)
-                posGround.append(pos)
+                if (word != 'G_P_A'):
+                    message += (" " + word)
+                    lidGround.append(lid)
+                    posGround.append(pos)
+                    words.append(word)
                 # with period or question mark get ground truth
                 # comparison
                 if (word == '?' or word == '.'):
@@ -95,6 +99,7 @@ with open(out, "a") as output:
                     message = ""
                     lidGround = []
                     posGround = []
+                    words = []
 
 
 print(correctSpa)
