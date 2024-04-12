@@ -74,6 +74,7 @@ with open(out, "a") as output:
                 last_word = word
                 last_pos = pos
                 last_lid = lid
+                index = index + 1
 print((EN_SPA_prev_verb + SPA_EN_prev_verb)/verb_Count)
 
 print((EN_SPA_prev_noun + SPA_EN_prev_noun)/noun_Count)
