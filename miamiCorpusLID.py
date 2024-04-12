@@ -12,6 +12,9 @@ with open(out, "a") as output:
         with open(data_dir  + '/' + file, "r") as read:
             for line in read:
                 values = line.split()
+                # skip blank lines
+                if (len(values) == 0):
+                    continue
                 word = values[0]
                 lidTruth = values[1]
                 # posTruth = values[2]
