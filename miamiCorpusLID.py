@@ -85,6 +85,8 @@ with open(out, "a") as output:
             continue
         if(file == "README.md"):
             continue
+        if (file != "herring3.cha.conll"):
+            continue
         with open(data_dir  + '/' + file, "r") as read:
             # get all the speech of the corpus as a gigantic string
             # lid model i/o is capped at length 510 it seems.
