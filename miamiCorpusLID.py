@@ -73,6 +73,8 @@ with open(out, "a") as output:
                     lidResult = lid_model(message)
                     print(len(lidResult))
                     print(len(lidGround))
+                    print(lidResult)
+                    print(lidGround)
                     groundCompare(lidResult)
                     message = ""
                     lidGround = []
