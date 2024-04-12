@@ -44,7 +44,7 @@ def groundCompare(lidResult):
         lidToken= lidResult[index].get('word')
         language = lidResult[index].get('entity')
         # concatenate lid tokens 
-        print(word, lidToken, word == lidToken)
+        # print(word, lidToken, word == lidToken)
         # report mismatch
         if (word != lidToken and word[0] != lidToken[0]):
             print("MISMATCH", word, lidToken)
@@ -84,8 +84,6 @@ with open(out, "a") as output:
             continue
         if(file == "README.md"):
             continue
-        if (file != "herring3.cha.conll"):
-            continue
         with open(data_dir  + '/' + file, "r") as read:
             # get all the speech of the corpus as a gigantic string
             # lid model i/o is capped at length 510 it seems.
@@ -102,7 +100,7 @@ with open(out, "a") as output:
                 word = values[1]
                 lid = values[2]
                 pos = values[3]
-                print(word, line, "line")
+                # print(word, line, "line")
                 acronym = False
                 for i in range(len(word)):
                     if (word[i] == '_'):
@@ -118,11 +116,11 @@ with open(out, "a") as output:
                 # comparison
                 if (word == '?' or word == '.'):
                     lidResult = lid_model(message)
-                    print(len(lidResult))
-                    print(len(lidGround))
-                    print(file)
-                    print(lidResult)
-                    print(lidGround)
+                    # print(len(lidResult))
+                    # print(len(lidGround))
+                    # print(file)
+                    # print(lidResult)
+                    # print(lidGround)
                     groundCompare(lidResult)
                     message = ""
                     lidGround = []
