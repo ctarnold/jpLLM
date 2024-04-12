@@ -41,7 +41,10 @@ def groundCompare(lidResult):
         # skip tokens that are broken apart
         if (word[0] == '#'):
             continue
-       
+        if (word == 'n'):
+            if (lidResult[j+1].get('word') == '\''):
+                if(lidResult[j+2].get('word') == 't'):
+                    j = j + 3
         if (language == 'spa'):
             if (lidGround[index] == 'spa'):
                 correctSpa += 1
@@ -79,6 +82,7 @@ with open(out, "a") as output:
                 word = values[1]
                 lid = values[2]
                 pos = values[3]
+
                 if (word != '...' and word != 'G_P_A'):
                     message += (" " + word)
                     lidGround.append(lid)
