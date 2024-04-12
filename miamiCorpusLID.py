@@ -15,7 +15,11 @@ wrongSpa = 0
 wrongEn = 0
 other = 0
 
-def groundCompare(text, lidResult):
+message = ""
+lidGround = []
+posGround = []
+
+def groundCompare(lidResult):
      for j in range(len(lidResult)):
         language = lidResult[j].get('entity')
         if (language == 'spa'):
@@ -60,7 +64,7 @@ with open(out, "a") as output:
                 # comparison
                 if (word == '?' or word == '.'):
                     lidResult = lid_model(message)
-                    groundCompare(message, lidResult)
+                    groundCompare(lidResult)
                     message = ""
                     lidGround = []
                     posGround = []
