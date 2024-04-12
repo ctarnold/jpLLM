@@ -17,9 +17,11 @@ with open(out, "a") as output:
                 # skip blank lines
                 if (len(values) <= 2):
                     continue
-                word = values[0]
-                lidTruth = values[1]
-                posTruth = values[2]
-                print(word + " " + lidTruth + " " + posTruth, file =  output)
+                num = values[0]
+                word = values[1]
+                lidTruth = values[2]
+                posTruth = values[3]
+                print(word + " " + lidTruth + " " + posTruth, 
+                      file = output)
         
     
