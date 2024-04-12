@@ -25,42 +25,46 @@ words = []
 # if not, remove characters or concatenate as needed.
 
 def groundCompare(lidResult):
-     global lidGround
-     global posGround
-     global correctSpa
-     global correctEn
-     global wrongSpa
-     global wrongEn
-     global other
+    global lidGround
+    global posGround
+    global correctSpa
+    global correctEn
+    global wrongSpa
+    global wrongEn
+    global words
+    global other
 
-     index = 0
-     for j in range(len(lidResult)):
-        language = lidResult[j].get('entity')
-        word = lidResult[j].get('word')
-
-        # skip tokens that are broken apart
-        if (word[0] == '#'):
-            continue
-        if (word == '\''):
-            continue
-        if (word == 'n'):
-            if (lidResult[j+1].get('word') == '\''):
-                if(lidResult[j+2].get('word') == 't'):
-                    j = j + 3
-            continue
+   
+    index = 0
+    groundIndex = 0
+    # second way
+    # for each word in the ground truth
+    # use first token tag for ground truth
+    for word in range(len(words)):
+        lidToken= lidResult[index].get('word')
+        language = lidResult[index].get('entity')
+        # concatenate lid tokens 
+        while (word != lidToken):
+            index += 1
+            lidToken = lidToken + lidResult[index].get('word')
         if (language == 'spa'):
-            if (lidGround[index] == 'spa'):
+            if (lidGround[groundIndex] == 'spa'):
                 correctSpa += 1
-            if (lidGround[index] == 'eng' or lidGround[index] == 'en'):
+            if (lidGround[groundIndex] == 'eng' or lidGround[groundIndex] == 'en'):
                 wrongSpa += 1
         if (language == 'en' or language == 'eng'):
-            if (lidGround[index] == 'eng' or lidGround[index] == 'en'):
+            if (lidGround[groundIndex] == 'eng' or lidGround[groundIndex] == 'en'):
                 correctEn += 1
-            if (lidGround[index] == 'spa'):
+            if (lidGround[groundIndex] == 'spa'):
                 wrongEn += 1
         if (language != 'en' and language != 'spa' and language != 'eng'):
                 other += 1
         index += 1
+        groundIndex += 1
+
+### word: ... index = 0, token .
+### word: ... index = 1, token ..
+### word: ... index = 2, token ...
 
 with open(out, "a") as output:
     for file in os.listdir(data_dir):
