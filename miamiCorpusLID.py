@@ -20,6 +20,10 @@ lidGround = []
 posGround = []
 words = []
 
+# another way to do this would be to check 
+# whether each word is valid against the ground truth,
+# if not, remove characters or concatenate as needed.
+
 def groundCompare(lidResult):
      global lidGround
      global posGround
@@ -43,6 +47,8 @@ def groundCompare(lidResult):
                 nextWord2 = lidResult[j + 1].get('word')
                 if (word == '.' and nextWord == '.' and nextWord2 == '.'):
                     j = j + 3
+                    index +=1
+                    continue
         if (language == 'spa'):
             if (lidGround[index] == 'spa'):
                 correctSpa += 1
