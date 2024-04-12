@@ -52,7 +52,7 @@ with open(out, "a") as output:
         with open(data_dir  + '/' + file, "r") as read:
             # get all the speech of the corpus as a gigantic string
             # lid model i/o is capped at length 510 it seems.
-            message = []
+            message = ""
             lidGround = []
             posGround = []
             for line in read:
