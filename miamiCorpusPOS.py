@@ -4,7 +4,7 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification, pipelin
 tokenizer = AutoTokenizer.from_pretrained("/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince")
 
 model = AutoModelForTokenClassification.from_pretrained("/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince")
-lid_model = pipeline('ner', model=model, tokenizer=tokenizer)
+lid_model = pipeline('pos', model=model, tokenizer=tokenizer)
 
 data_dir = "/scratch/gpfs/ca2992/jpLLM/bangor/crowdsourced_bangor"
 out = "/scratch/gpfs/ca2992/jpLLM/bangor/test"
@@ -35,4 +35,4 @@ with open(out, "a") as output:
                 lidGround.append(lid)
                 posGround.append(pos)
 
-lidResult = lid_model(message)
+posResult = lid_model(message)
