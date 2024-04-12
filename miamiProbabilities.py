@@ -42,12 +42,6 @@ with open(out, "a") as output:
                 pos = values[3]
                 if (lid == "punct"):
                     continue
-                if (pos == "VERB"):
-                    verb_Count += 1
-                if (pos ==  "NOUN"):
-                    noun_Count += 1
-                if (pos == "CONJ"):
-                    conj_Count += 1
                 if (index == 0):
                     last_word = word
                     last_pos = pos
@@ -69,9 +63,15 @@ with open(out, "a") as output:
                                 EN_SPA_prev_noun += 1
                             if (last_pos == "CONJ"):
                                 EN_SPA_prev_conj += 1
-                    last_word = word
-                    last_pos = pos
-                    last_lid = lid
+                if (pos == "VERB"):
+                    verb_Count += 1
+                if (pos ==  "NOUN"):
+                    noun_Count += 1
+                if (pos == "CONJ"):
+                    conj_Count += 1
+                last_word = word
+                last_pos = pos
+                last_lid = lid
 print((EN_SPA_prev_verb + SPA_EN_prev_verb)/verb_Count)
 
 print((EN_SPA_prev_noun + SPA_EN_prev_noun)/noun_Count)
