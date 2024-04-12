@@ -44,18 +44,18 @@ wrongEn = 0
 other = 0
 for j in range(len(lidResult)):
     language = lidResult[j].get('entity')
-    print(language)
+    # print(language)
     if (language == 'spa'):
         if (lidGround[j] == 'spa'):
             correctSpa += 1
-        if (lidGround[j] == 'eng'):
+        if (lidGround[j] == 'eng' or lidGround[j] == 'en'):
             wrongSpa += 1
-    if (language == 'eng'):
-        if (lidGround[j] == 'eng'):
+    if (language == 'en' or language == 'eng'):
+        if (lidGround[j] == 'eng' or lidGround[j] == 'en'):
             correctEn += 1
         if (lidGround[j] == 'spa'):
             wrongEn += 1
-    if (language != 'eng' and language != 'spa'):
+    if (language != 'en' and language != 'spa' and language != 'eng'):
             other += 1
 
 print(correctSpa)
