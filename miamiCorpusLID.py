@@ -42,7 +42,6 @@ def groundCompare(lidResult):
                 nextWord2 = lidResult[j + 1].get('word')
                 if (word == '.' and nextWord == '.' and nextWord2 == '.'):
                     j = j + 3
-                    index += 1
                     continue
         if (language == 'spa'):
             if (lidGround[index] == 'spa'):
