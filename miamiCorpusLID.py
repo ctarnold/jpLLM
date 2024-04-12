@@ -12,9 +12,9 @@ with open(out, "a") as output:
         with open(data_dir  + '/' + file, "r") as read:
             for line in read:
                 values = line.split()
-                word = values.index(0)
-                lidTruth = values.index(1)
-                posTruth = values.index(2)
+                word = values[0]
+                lidTruth = values[1]
+                posTruth = values[2]
                 print(word + " " + lidTruth + " " + posTruth, output)
         
     
