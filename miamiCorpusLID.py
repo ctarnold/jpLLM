@@ -27,20 +27,28 @@ def groundCompare(lidResult):
      global wrongSpa
      global wrongEn
      global other
+
+     index = 0
      for j in range(len(lidResult)):
         language = lidResult[j].get('entity')
+        word = lidResult[j].get('word')
+
+        # skip tokens that are broken apart
+        if (word[0] == '#'):
+            continue
         if (language == 'spa'):
-            if (lidGround[j] == 'spa'):
+            if (lidGround[index] == 'spa'):
                 correctSpa += 1
-            if (lidGround[j] == 'eng' or lidGround[j] == 'en'):
+            if (lidGround[index] == 'eng' or lidGround[index] == 'en'):
                 wrongSpa += 1
         if (language == 'en' or language == 'eng'):
-            if (lidGround[j] == 'eng' or lidGround[j] == 'en'):
+            if (lidGround[index] == 'eng' or lidGround[index] == 'en'):
                 correctEn += 1
-            if (lidGround[j] == 'spa'):
+            if (lidGround[index] == 'spa'):
                 wrongEn += 1
         if (language != 'en' and language != 'spa' and language != 'eng'):
                 other += 1
+        index += 1
 
 with open(out, "a") as output:
     for file in os.listdir(data_dir):
@@ -71,10 +79,10 @@ with open(out, "a") as output:
                 # comparison
                 if (word == '?' or word == '.'):
                     lidResult = lid_model(message)
-                    print(len(lidResult))
-                    print(len(lidGround))
-                    print(lidResult)
-                    print(lidGround)
+                    # print(len(lidResult))
+                    # print(len(lidGround))
+                    # print(lidResult)
+                    # print(lidGround)
                     groundCompare(lidResult)
                     message = ""
                     lidGround = []
