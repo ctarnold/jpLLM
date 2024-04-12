@@ -41,10 +41,13 @@ def groundCompare(lidResult):
         # skip tokens that are broken apart
         if (word[0] == '#'):
             continue
+        if (word == '\''):
+            continue
         if (word == 'n'):
             if (lidResult[j+1].get('word') == '\''):
                 if(lidResult[j+2].get('word') == 't'):
                     j = j + 3
+            continue
         if (language == 'spa'):
             if (lidGround[index] == 'spa'):
                 correctSpa += 1
