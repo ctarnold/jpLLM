@@ -31,7 +31,7 @@ with open(out, "a") as output:
                 word = values[1]
                 lid = values[2]
                 pos = values[3]
-                message = word + " "
+                message = message + " " + word + " "
                 lidGround.append(lid)
                 posGround.append(pos)
 
