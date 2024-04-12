@@ -44,6 +44,7 @@ def groundCompare(lidResult):
         lidToken= lidResult[index].get('word')
         language = lidResult[index].get('entity')
         # concatenate lid tokens 
+        print(word, lidToken, word == lidToken)
         while (word != lidToken):
             index += 1
             lidToken = lidToken + lidResult[index].get('word')
