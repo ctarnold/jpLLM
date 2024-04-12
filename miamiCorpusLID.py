@@ -20,6 +20,6 @@ with open(out, "a") as output:
                 word = values[0]
                 lidTruth = values[1]
                 posTruth = values[2]
-                print(word + " " + lidTruth + " ", file =  output)
+                print(word + " " + lidTruth + " " + posTruth, file =  output)
         
     
