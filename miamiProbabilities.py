@@ -40,6 +40,8 @@ with open(out, "a") as output:
                 word = values[1]
                 lid = values[2]
                 pos = values[3]
+                print(pos)
+                print(lid)
                 if (lid == "punct"):
                     continue
                 if (index == 0):
