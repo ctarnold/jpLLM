@@ -52,6 +52,12 @@ def groundCompare(lidResult):
         while (word != lidToken and word[0] == lidToken[0]):
             index += 1
             lidToken = lidToken + lidResult[index].get('word')
+            # get rid of # symbols
+            tempTok = ""
+            for i in range(len(lidToken)):
+                if (lidToken[i] != '#'):
+                    tempTok = tempTok + lidToken[i]
+            lidToken = tempTok
         
         if (language == 'spa'):
             if (lidGround[groundIndex] == 'spa'):
