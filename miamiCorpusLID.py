@@ -4,14 +4,17 @@ data_dir = "/scratch/gpfs/ca2992/jpLLM/bangor/crowdsourced_bangor"
 out = "/scratch/gpfs/ca2992/jpLLM/bangor/test"
 
 
-for file in os.listdir(data_dir):
-    if os.path.isdir(data_dir  + '/' + file):
-    # Skip directories
-        continue
-    with open(data_dir  + '/' + file, "r") as read:
-        for line in read:
-            with open(out, "a") as f:
-                print(line, f)
-                print(type(line))
+with open(out, "a") as output:
+    for file in os.listdir(data_dir):
+        if os.path.isdir(data_dir  + '/' + file):
+        # Skip directories
+            continue
+        with open(data_dir  + '/' + file, "r") as read:
+            for line in read:
+                values = line.split()
+                word = values[1]
+                lidTruth = values[2]
+                posTruth = values[3]
+                print(word + " " + lidTruth + " " + posTruth, output)
         
     
