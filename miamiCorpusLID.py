@@ -15,13 +15,11 @@ with open(out, "a") as output:
             for line in read:
                 values = line.split()
                 # skip blank lines
-                if (len(values) == 0):
-                    continue
-                if (len(values) == 1):
+                if (len(values) <= 2):
                     continue
                 word = values[0]
                 lidTruth = values[1]
-                # posTruth = values[2]
+                posTruth = values[2]
                 print(word + " " + lidTruth + " ", file =  output)
         
     
