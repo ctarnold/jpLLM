@@ -45,9 +45,14 @@ def groundCompare(lidResult):
         language = lidResult[index].get('entity')
         # concatenate lid tokens 
         print(word, lidToken, word == lidToken)
-        while (word != lidToken):
+        # report mismatch
+        if (word != lidToken and word[0] != lidToken[0]):
+            print("MISMATCH", word, lidToken)
+            continue
+        while (word != lidToken and word[0] == lidToken[0]):
             index += 1
             lidToken = lidToken + lidResult[index].get('word')
+        
         if (language == 'spa'):
             if (lidGround[groundIndex] == 'spa'):
                 correctSpa += 1
