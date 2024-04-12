@@ -15,9 +15,11 @@ with open(out, "a") as output:
                 # skip blank lines
                 if (len(values) == 0):
                     continue
+                if (len(values) == 1):
+                    continue
                 word = values[0]
                 lidTruth = values[1]
-                # posTruth = values[2]
-                print(word + " " + lidTruth + " ", output)
+                posTruth = values[2]
+                print(word + " " + lidTruth + " " + posTruth, output)
         
     
