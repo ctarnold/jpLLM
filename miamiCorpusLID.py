@@ -14,7 +14,7 @@ with open(out, "a") as output:
                 values = line.split()
                 word = values[0]
                 lidTruth = values[1]
-                posTruth = values[2]
-                print(word + " " + lidTruth + " " + posTruth, output)
+                # posTruth = values[2]
+                print(word + " " + lidTruth + " ", output)
         
     
