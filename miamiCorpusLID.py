@@ -86,7 +86,7 @@ with open(out, "a") as output:
                 lid = values[2]
                 pos = values[3]
 
-                if (word != '...' and word != 'G_P_A'):
+                if (word != '...' and word != 'G_P_A' and word != '<unintelligible>'):
                     message += (" " + word)
                     lidGround.append(lid)
                     posGround.append(pos)
