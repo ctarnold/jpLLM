@@ -5,9 +5,10 @@ out = "/scratch/gpfs/ca2992/jpLLM/bangor/test"
 
 
 for file in os.listdir(data_dir):
-    for line in file:
-        with open(out, "a") as f:
-            print(line, f)
-            print(type(line))
+    with open(file, "r") as read:
+        for line in read:
+            with open(out, "a") as f:
+                print(line, f)
+                print(type(line))
         
     
