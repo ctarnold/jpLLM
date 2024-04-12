@@ -84,7 +84,7 @@ with open(out, "a") as output:
             for line in read:
                 values = line.split()
                 # skip blank lines
-                if (len(values) <= 2):
+                if (len(values) <= 3):
                     continue
                 num = values[0]
                 word = values[1]
