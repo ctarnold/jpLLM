@@ -3,7 +3,7 @@ import os
 data_dir = "/scratch/gpfs/ca2992/jpLLM/bangor/crowdsourced_bangor"
 out = "/scratch/gpfs/ca2992/jpLLM/bangor/test"
 
-# get all the speech of the corpus as a gigantic string?
+# get all the speech of the corpus as a gigantic string
 message = ""
 lidGround = []
 posGround = []
