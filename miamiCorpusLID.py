@@ -20,6 +20,13 @@ lidGround = []
 posGround = []
 
 def groundCompare(lidResult):
+     global lidGround
+     global posGround
+     global correctSpa
+     global correctEn
+     global wrongSpa
+     global wrongEn
+     global other
      for j in range(len(lidResult)):
         language = lidResult[j].get('entity')
         if (language == 'spa'):
