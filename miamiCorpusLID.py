@@ -58,8 +58,13 @@ for j in range(len(lidResult)):
     if (language != 'en' and language != 'spa' and language != 'eng'):
             other += 1
 
-print(correctSpa)
-print(correctEn)
-print(wrongSpa)
-print(wrongEn)
-print(other)
+
+
+# print(correctSpa)
+# print(correctEn)
+# print(wrongSpa)
+# print(wrongEn)
+# print(other)
+
+print(message)
+print(lidGround)
