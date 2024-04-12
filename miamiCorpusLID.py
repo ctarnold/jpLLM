@@ -15,7 +15,7 @@ wrongSpa = 0
 wrongEn = 0
 other = 0
 
-message = ""
+message = []
 lidGround = []
 posGround = []
 
@@ -52,7 +52,7 @@ with open(out, "a") as output:
         with open(data_dir  + '/' + file, "r") as read:
             # get all the speech of the corpus as a gigantic string
             # lid model i/o is capped at length 510 it seems.
-            message = ""
+            message = []
             lidGround = []
             posGround = []
             for line in read:
@@ -64,7 +64,7 @@ with open(out, "a") as output:
                 word = values[1]
                 lid = values[2]
                 pos = values[3]
-                message = message + " " + word + " "
+                message.append(word)
                 lidGround.append(lid)
                 posGround.append(pos)
                 # with period or question mark get ground truth
@@ -74,7 +74,7 @@ with open(out, "a") as output:
                     print(len(lidResult))
                     print(len(lidGround))
                     groundCompare(lidResult)
-                    message = ""
+                    message = []
                     lidGround = []
                     posGround = []
 
