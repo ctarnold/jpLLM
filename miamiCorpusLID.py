@@ -95,7 +95,8 @@ with open(out, "a") as output:
                 word = values[1]
                 lid = values[2]
                 pos = values[3]
-
+                if (word == 0):
+                    print(line)
                 acronym = False
                 for i in range(len(word)):
                     if (word[i] == '_'):
