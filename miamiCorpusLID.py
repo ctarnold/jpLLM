@@ -40,7 +40,7 @@ def groundCompare(lidResult):
     # second way
     # for each word in the ground truth
     # use first token tag for ground truth
-    for word in range(len(words)):
+    for word in words:
         lidToken= lidResult[index].get('word')
         language = lidResult[index].get('entity')
         # concatenate lid tokens 
