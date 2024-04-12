@@ -39,7 +39,7 @@ def groundCompare(lidResult):
     groundIndex = 0
     # second way
     # for each word in the ground truth
-    # use first token tag for ground truth
+    # compare to first token lid tag 
     for word in words:
         lidToken= lidResult[index].get('word')
         language = lidResult[index].get('entity')
@@ -52,7 +52,7 @@ def groundCompare(lidResult):
         while (word != lidToken and word[0] == lidToken[0]):
             index += 1
             lidToken = lidToken + lidResult[index].get('word')
-            # get rid of # symbols
+            # get rid of # symbols added by tokenizer
             tempTok = ""
             for i in range(len(lidToken)):
                 if (lidToken[i] != '#'):
@@ -69,14 +69,13 @@ def groundCompare(lidResult):
                 correctEn += 1
             if (lidGround[groundIndex] == 'spa'):
                 wrongEn += 1
-        if (language != 'en' and language != 'spa' and language != 'eng'):
+        # if ground truth labels it as some other label, count as other.
+        if (lidGround[groundIndex] != 'en' and 
+            lidGround[groundIndex] != 'spa' and 
+            lidGround[groundIndex] != 'eng'):
                 other += 1
         index += 1
         groundIndex += 1
-
-### word: ... index = 0, token .
-### word: ... index = 1, token ..
-### word: ... index = 2, token ...
 
 with open(out, "a") as output:
     for file in os.listdir(data_dir):
@@ -109,7 +108,7 @@ with open(out, "a") as output:
                     if (word[i] == '_'):
                         acronym = True
 
-
+                # omit ellipses, acronyms, unintelligible markers
                 if (word != '...' and acronym != True and word != '<unintelligible>'):
                     message += (" " + word)
                     lidGround.append(lid)
