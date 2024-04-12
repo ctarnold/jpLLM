@@ -42,7 +42,7 @@ correctEn = 0
 wrongSpa = 0
 wrongEn = 0
 other = 0
-for j in range(len(lidGround)):
+for j in range(len(lidResult)):
     language = lidResult[j].get('entity')
     # print(language)
     if (language == 'spa'):
