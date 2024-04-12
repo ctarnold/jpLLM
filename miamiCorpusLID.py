@@ -21,7 +21,7 @@ with open(out, "a") as output:
                     continue
                 word = values[0]
                 lidTruth = values[1]
-                posTruth = values[2]
-                print(word + " " + lidTruth + " " + posTruth, output)
+                # posTruth = values[2]
+                print(word + " " + lidTruth + " ", output)
         
     
