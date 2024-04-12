@@ -36,4 +36,25 @@ with open(out, "a") as output:
                 posGround.append(pos)
 
 lidResult = lid_model(message)
-print(lidResult)
+
+correctSpa = 0
+correctEn = 0
+wrongSpa = 0
+wrongEn = 0
+other = 0
+for j in range(len(lidResult)):
+    language = lidResult[j].get('entity')
+    if (language == 'spa'):
+        if (lidGround[j] == 'spa'):
+            correctSpa += 1
+        if (lidGround[j] == 'en'):
+            wrongSpa += 1
+    if (language == 'en'):
+        if (lidGround[j] == 'en'):
+            correctEn += 1
+        if (lidGround[j] == 'spa'):
+            wrongEn += 1
+    if (language != 'en' and language != 'spa'):
+            other += 1
+
+print(correctSpa + " " + correctEn + " " + wrongSpa + " " + wrongEn + " " + other)
