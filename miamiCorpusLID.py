@@ -33,7 +33,7 @@ def groundCompare(lidResult):
      for j in range(len(lidResult)):
         language = lidResult[j].get('entity')
         word = lidResult[j].get('word')
-        
+
         # skip tokens that are broken apart
         if (word[0] == '#'):
             continue
@@ -43,7 +43,6 @@ def groundCompare(lidResult):
                 nextWord2 = lidResult[j + 1].get('word')
                 if (word == '.' and nextWord == '.' and nextWord2 == '.'):
                     j = j + 3
-                    continue
         if (language == 'spa'):
             if (lidGround[index] == 'spa'):
                 correctSpa += 1
