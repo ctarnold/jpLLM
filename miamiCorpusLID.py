@@ -9,6 +9,8 @@ with open(out, "a") as output:
         if os.path.isdir(data_dir  + '/' + file):
         # Skip directories
             continue
+        if(file == "README.md"):
+            continue
         with open(data_dir  + '/' + file, "r") as read:
             for line in read:
                 values = line.split()
