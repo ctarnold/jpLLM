@@ -35,7 +35,7 @@ index = 0
 with open(data_write_dir1, "r+") as f: 
     for message in messages:
         # first 100 prompts
-        if (index >= 100): 
+        if (index >= 50): 
             continue
         text = [{"role": "user", "content": message}]
         inputs = tokenizer.apply_chat_template(
