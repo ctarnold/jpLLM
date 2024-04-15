@@ -41,8 +41,8 @@ with open(data_write_dir1, "r+") as f:
         inputs = tokenizer.apply_chat_template(
             text, return_tensors="pt").to(device)
         outputs = model.generate(
-            inputs, max_new_tokens=128, temperature = 0.0, 
-            do_sample = True, pad_token_id=tokenizer.pad_token_id, 
+            inputs, max_new_tokens=128, 
+            do_sample = False, pad_token_id=tokenizer.pad_token_id, 
             no_repeat_ngram_size = 0, top_k = 50)
 
         
