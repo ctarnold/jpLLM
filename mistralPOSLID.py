@@ -1,4 +1,5 @@
 import os
+import lidCall
 read_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_415.tsv"
 read_dir_1 = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_415_1.tsv"
 files = [read_dir, read_dir_1]
@@ -44,65 +45,8 @@ last_lid = ""
         # feed into lid model, tag each word
         # feed into pos model, tag each word
         # count CS occurrences
+with open(read_dir_1, "a") as file:
+    for line in file:
+        print(lidCall(line))
+        break
 
-for file in files:
-        with open(file) as read:
-            index = 0
-            for line in read:
-                values = line.split()
-                # skip blank lines
-                if (len(values) <= 2):
-                    continue
-                num = values[0]
-                word = values[1]
-                lid = values[2]
-                pos = values[3]
-                print(pos)
-                print(lid)
-                if (lid == "punct"):
-                    continue
-                if (index == 0):
-                    last_word = word
-                    last_pos = pos
-                    last_lid = lid
-                else:
-                    # if code-switching occurred
-                    if (last_lid != lid):
-                        if (last_lid == 'spa'):
-                            if (last_pos == "VERB"):
-                                SPA_EN_prev_verb += 1
-                            if (last_pos ==  "NOUN"):
-                                SPA_EN_prev_noun += 1
-                            if (last_pos == "CONJ"):
-                                SPA_EN_prev_conj += 1
-                        if (last_lid == 'eng'):
-                            if (last_pos == "VERB"):
-                                EN_SPA_prev_verb += 1
-                            if (last_pos ==  "NOUN"):
-                                EN_SPA_prev_noun += 1
-                            if (last_pos == "CONJ"):
-                                EN_SPA_prev_conj += 1
-                        if (last_lid == 'eng'):
-                            if (pos == "VERB"):
-                                EN_SPA_verb += 1
-                            if (pos ==  "NOUN"):
-                                EN_SPA_noun += 1
-                            if (pos == "CONJ"):
-                                EN_SPA_conj += 1
-                        if (last_lid == 'spa'):
-                            if (pos == "VERB"):
-                                SPA_EN_verb += 1
-                            if (pos ==  "NOUN"):
-                                SPA_EN_noun += 1
-                            if (pos == "CONJ"):
-                                SPA_EN_conj += 1
-                if (pos == "VERB"):
-                    verb_Count += 1
-                if (pos ==  "NOUN"):
-                    noun_Count += 1
-                if (pos == "CONJ"):
-                    conj_Count += 1
-                last_word = word
-                last_pos = pos
-                last_lid = lid
-                index = index + 1
