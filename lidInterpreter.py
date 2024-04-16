@@ -8,7 +8,7 @@ def interpret(sourceText, lidTagged):
         thisWord = lidTagged[j].get('word')
         if (thisWord[0] == '#'):
             lastWord = lidTagged[j-1].get('word')
-            for k in len(thisWord):
+            for k in range(len(thisWord)):
                 if (thisWord[k] != '#'):
                     lastWord += thisWord[k]
             language = lidTagged[j-1].get('entity')
