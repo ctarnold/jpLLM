@@ -45,7 +45,7 @@ last_lid = ""
         # feed into lid model, tag each word
         # feed into pos model, tag each word
         # count CS occurrences
-with open(read_dir_1, "a") as file:
+with open(read_dir_1, "r") as file:
     for line in file:
         print(lidCall(line))
         break
