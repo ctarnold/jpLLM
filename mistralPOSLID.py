@@ -1,5 +1,6 @@
 import os
 import lidCall
+import lidInterpreter
 read_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_415.tsv"
 read_dir_1 = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_415_1.tsv"
 files = [read_dir, read_dir_1]
@@ -48,5 +49,6 @@ last_lid = ""
 with open(read_dir_1, "r") as file:
     for line in file:
         print(lidCall.lid(line))
+        print(lidInterpreter.interpret(line, lidCall.lid(line)))
         break
 
