@@ -47,6 +47,6 @@ last_lid = ""
         # count CS occurrences
 with open(read_dir_1, "r") as file:
     for line in file:
-        print(lidCall(line))
+        print(lidCall.lid(line))
         break
 
