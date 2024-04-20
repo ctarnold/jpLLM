@@ -8,6 +8,6 @@ text = "Esto es un tweet estoy usando pysentimiento"
 
 # ['<s>','▁Esto','▁es','▁un','▁tweet','▁estoy','▁usando','▁','▁hashtag','▁','▁ro','bert','uito','▁@usuario','▁','▁emoji','▁cara','▁revolviéndose','▁de','▁la','▁risa','▁emoji','</s>']
 
-pos_model = pipeline('pos', model=model, tokenizer=tokenizer)
+pos_model = pipeline('token-classification', model=model, tokenizer=tokenizer)
 
 print(pos_model(text))
