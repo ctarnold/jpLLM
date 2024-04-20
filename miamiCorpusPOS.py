@@ -1,7 +1,7 @@
-from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline
 
 tokenizer = AutoTokenizer.from_pretrained('/scratch/gpfs/ca2992/robertuito/models/beto-cased-finetuned')
-model = AutoModelForTokenClassification.from_pretrained('/scratch/gpfs/ca2992/robertuito/models/test_error_model')
+model = AutoModelForSequenceClassification.from_pretrained('/scratch/gpfs/ca2992/robertuito/models/beto-cased-finetuned')
 text = "Esto es un tweet estoy usando pysentimiento"
 
 # ['<s>','▁Esto','▁es','▁un','▁tweet','▁estoy','▁usando','▁','▁hashtag','▁','▁ro','bert','uito','▁@usuario','▁','▁emoji','▁cara','▁revolviéndose','▁de','▁la','▁risa','▁emoji','</s>']
