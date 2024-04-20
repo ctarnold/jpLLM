@@ -6,6 +6,6 @@ tokenizer = AutoTokenizer.from_pretrained("/scratch/gpfs/ca2992/codeswitch-spaen
 model = AutoModelForTokenClassification.from_pretrained("/scratch/gpfs/ca2992/codeswitch-spaeng-ner-lince")
 ner_model = pipeline('ner', model=model, tokenizer=tokenizer)
 
-text = "testing the ner of the model."
+text = "estoy intentando hacer la recognición de entidaded nombeadas. por alguna razón, el resultado no funciona."
 
 ner_model(text)
