@@ -6,4 +6,4 @@ tokenizer = AutoTokenizer.from_pretrained("/scratch/gpfs/ca2992/codeswitch-spaen
 model = AutoModelForTokenClassification.from_pretrained("/scratch/gpfs/ca2992/codeswitch-spaeng-ner-lince")
 pos_model = pipeline('ner', model=model, tokenizer=tokenizer)
 
-pos_model("put any spanish english code-mixed sentence")
+print(pos_model("put any spanish english code-mixed sentence"))
