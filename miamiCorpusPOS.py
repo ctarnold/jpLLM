@@ -8,4 +8,4 @@ ner_model = pipeline('ner', model=model, tokenizer=tokenizer)
 
 text = "testing the ner of the model."
 
-print(ner_model(text))
+ner_model(text)
