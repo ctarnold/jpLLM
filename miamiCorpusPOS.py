@@ -8,4 +8,4 @@ ner_model = pipeline('ner', model=model, tokenizer=tokenizer)
 
 text = "estoy intentando hacer la recognición de entidaded nombeadas. por alguna razón, el resultado no funciona."
 
-ner_model(text)
+print(ner_model(text))
