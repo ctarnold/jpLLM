@@ -107,13 +107,23 @@ with open(out_dir, "a") as output:
     # print(lid_truth, file = output)
     # print(lid_pred, file = output)
     # print(len(lid_truth), len(lid_pred), file = output)
-    print(len(lid_truth), len(lid_pred))
 
-    for i in range(100):
-        print(lid_truth[i])
-        print(lid_pred[i])
+    truth_cleaned = [[]]
+    pred_cleaned = [[]]
 
-    print(eval.getMetrics(lid_truth, lid_pred), file = output)  
+    assert len(lid_truth) == len(lid_pred)
+
+    for i in range(len(lid_truth)):
+        if (lid_truth[i][0] == 'eng'):
+            truth_cleaned.append(['en'])
+            pred_cleaned.append(lid_pred[i])
+        elif (lid_truth[i][0] == 'spa'):
+            truth_cleaned.append(['spa'])
+            pred_cleaned.append(lid_pred[i])
+        
+    assert len(truth_cleaned) == len(pred_cleaned)
+
+    print(eval.getMetrics(truth_cleaned, pred_cleaned), file = output)  
 
 
 
