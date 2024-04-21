@@ -80,8 +80,9 @@ with open(out_dir, "a") as output:
                 values = line.split()
                 # skip blank lines or placeholder lines
                 if (len(values) <= 3):
-                    print(line)
+                    # print(line)
                     continue
+                print(values[0], values[1], values[2], values[3])
                 pos = values[3] #pos at index 3 of each line
                 word = values[1] # word at index 1 of each line
                 words.append(word)
