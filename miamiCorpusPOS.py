@@ -81,14 +81,16 @@ with open(out_dir, "a") as output:
                 # print(line)
                 pos = values[3] #pos at index 3 of each line
                 word = values[1] # word at index 1 of each line
-                words.append(word)
                 numWords += 1
                 pos_truth.append(pos)
                 # print(pos)
                 if isContraction:
                     message = message + word
+                    lastWord = words.pop()
+                    words.append(lastWord + word)
                 else:
                     message = message + " " + word
+                    words.append(word)
                 # at the end of each sentence, pass into the model
                 if (word == '.'):
                     tokenToWordPred(message, words)
