@@ -86,15 +86,17 @@ with open(out_dir, "a") as output:
                 pos = values[3] #pos at index 3 of each line
                 word = values[1] # word at index 1 of each line
                 numWords += 1
-                pos_truth.append([pos])
                 # print(pos)
                 if isContraction(word):
+                    # if is a contraction, implicitly use last truth tag
                     message = message + word
                     lastWord = words.pop()
                     words.append(lastWord + word)
                 else:
+                    # if it is not a contraction, use the truth tag
                     message = message + " " + word
                     words.append(word)
+                    pos_truth.append([pos])
                 # at the end of each sentence, pass into the model
                 if (word == '.'):
                     tokenToWordPred(message, words)
