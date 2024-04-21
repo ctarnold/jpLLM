@@ -108,6 +108,11 @@ with open(out_dir, "a") as output:
     # print(lid_pred, file = output)
     # print(len(lid_truth), len(lid_pred), file = output)
     print(len(lid_truth), len(lid_pred))
+
+    for i in range(100):
+        print(lid_truth[i])
+        print(lid_pred[i])
+
     print(eval.getMetrics(lid_truth, lid_pred), file = output)  
 
 
