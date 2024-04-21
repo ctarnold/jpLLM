@@ -84,7 +84,7 @@ with open(out_dir, "a") as output:
                 numWords += 1
                 pos_truth.append(pos)
                 # print(pos)
-                if isContraction:
+                if isContraction(word):
                     message = message + word
                     lastWord = words.pop()
                     words.append(lastWord + word)
