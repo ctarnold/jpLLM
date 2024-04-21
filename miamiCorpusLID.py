@@ -1,134 +1,120 @@
 import os
+import lidCall
+import eval
 from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline
 
-tokenizer = AutoTokenizer.from_pretrained("/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince")
 
-model = AutoModelForTokenClassification.from_pretrained("/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince")
+# model_name = '/scratch/gpfs/ca2992/robertuito-base-cased'
+model_name = '/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince'
+tokenizer_name = '/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince'
+tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
+model = AutoModelForTokenClassification.from_pretrained(model_name)
+
+out_dir = '/scratch/gpfs/ca2992/jpLLM/jpLLM/lid_out'
+data_dir = '/scratch/gpfs/ca2992/jpLLM/bangor/crowdsourced_bangor'
+
 lid_model = pipeline('ner', model=model, tokenizer=tokenizer)
+lid_truth = []
+lid_pred = []
 
-data_dir = "/scratch/gpfs/ca2992/jpLLM/bangor/crowdsourced_bangor"
-out = "/scratch/gpfs/ca2992/jpLLM/bangor/test"
+# given a token with the '#' symbol,
+# remove the symbol for preprocessing
+def cleanPoundSign(word):
+    tempTok = ""
+    for i in range(len(word)):
+        if (word[i] != '#'):
+            tempTok = tempTok + word[i]
+    return tempTok
 
-correctSpa = 0
-correctEn = 0
-wrongSpa = 0
-wrongEn = 0
-other = 0
 
-message = ""
-lidGround = []
-posGround = []
-words = []
+# words in the annotated Bangor Corpus
+# contain ' if a contraction. Check to allow
+# concatenation
+def isContraction(word):
+    for char in word:
+        if (char == '\''):
+            return True
+    return False
 
-# another way to do this would be to check 
-# whether each word is valid against the ground truth,
-# if not, remove characters or concatenate as needed.
 
-def groundCompare(lidResult):
-    global lidGround
-    global posGround
-    global correctSpa
-    global correctEn
-    global wrongSpa
-    global wrongEn
-    global words
-    global other
-
+# convert token predictions to word predictions
+def tokenToWordPred(message, trueWords):
+    lidResult = lid_model(message)
     index = 0
-    groundIndex = 0
-    # second way
-    # for each word in the ground truth
-    # compare to first token lid tag 
-    for word in words:
-        lidToken= lidResult[index].get('word')
-        language = lidResult[index].get('entity')
-        # concatenate lid tokens 
-        # print(word, lidToken, word == lidToken)
-        # report mismatch
+    for word in trueWords:
+        lidToken = lidResult[index].get('word')
+        # get the lid predicted for this token and append
+        # to the lid word level predictions
+        lid = lidResult[index].get('entity')
+        lid_pred.append([lid])
+        # if token word mismatch imlidsible to handle
         if (word != lidToken and word[0] != lidToken[0]):
             print("MISMATCH", word, lidToken)
             continue
+
         while (word != lidToken and word[0] == lidToken[0]):
             index += 1
             lidToken = lidToken + lidResult[index].get('word')
             # get rid of # symbols added by tokenizer
-            tempTok = ""
-            for i in range(len(lidToken)):
-                if (lidToken[i] != '#'):
-                    tempTok = tempTok + lidToken[i]
-            lidToken = tempTok
-        
-        if (language == 'spa'):
-            if (lidGround[groundIndex] == 'spa'):
-                correctSpa += 1
-            if (lidGround[groundIndex] == 'eng' or lidGround[groundIndex] == 'en'):
-                wrongSpa += 1
-        if (language == 'en' or language == 'eng'):
-            if (lidGround[groundIndex] == 'eng' or lidGround[groundIndex] == 'en'):
-                correctEn += 1
-            if (lidGround[groundIndex] == 'spa'):
-                wrongEn += 1
-        # if ground truth labels it as some other label, count as other.
-        if (lidGround[groundIndex] != 'en' and 
-            lidGround[groundIndex] != 'spa' and 
-            lidGround[groundIndex] != 'eng'):
-                other += 1
+            lidToken = cleanPoundSign(lidToken)
         index += 1
-        groundIndex += 1
 
-with open(out, "a") as output:
+fileCount = 0
+with open(out_dir, "a") as output:
     for file in os.listdir(data_dir):
         if os.path.isdir(data_dir  + '/' + file):
-        # Skip directories
+        # Skip directories and readme
             continue
         if(file == "README.md"):
             continue
+        # open the current file in the directory
         with open(data_dir  + '/' + file, "r") as read:
-            # get all the speech of the corpus as a gigantic string
-            # lid model i/o is capped at length 510 it seems.
-            message = ""
-            lidGround = []
-            posGround = []
+            if (fileCount >= 1):
+                continue
+            fileCount += 1
+            numWords = 0
             words = []
+            message = ""
             for line in read:
                 values = line.split()
-                # skip blank lines
+                # skip blank lines or placeholder lines
                 if (len(values) <= 3):
+                    # print(line)
                     continue
-                num = values[0]
-                word = values[1]
-                lid = values[2]
-                pos = values[3]
-                # print(word, line, "line")
-                acronym = False
-                for i in range(len(word)):
-                    if (word[i] == '_'):
-                        acronym = True
-
-                # omit ellipses, acronyms, unintelligible markers
-                if (word != '...' and acronym != True and word != '<unintelligible>'):
-                    message += (" " + word)
-                    lidGround.append(lid)
-                    posGround.append(pos)
+                # print(values[0], values[1], values[2], values[3])
+                # print(line)
+                lid = values[2] #lid at index 2 of each line
+                word = values[1] # word at index 1 of each line
+                numWords += 1
+                # print(lid)
+                if isContraction(word):
+                    # if is a contraction, implicitly use last truth tag
+                    message = message + word
+                    lastWord = words.pop()
+                    words.append(lastWord + word)
+                else:
+                    # if it is not a contraction, use the truth tag
+                    message = message + " " + word
                     words.append(word)
-                # with period or question mark get ground truth
-                # comparison
-                if (word == '?' or word == '.'):
-                    lidResult = lid_model(message)
-                    # print(len(lidResult))
-                    # print(len(lidGround))
-                    # print(file)
-                    # print(lidResult)
-                    # print(lidGround)
-                    groundCompare(lidResult)
-                    message = ""
-                    lidGround = []
-                    posGround = []
+                    lid_truth.append([lid])
+                # at the end of each sentence, pass into the model
+                if (word == '.'):
+                    tokenToWordPred(message, words)
+                    numWords = 0
+                    lid = []
                     words = []
+                    message = ""
+    # print(lid_truth, file = output)
+    # print(lid_pred, file = output)
+    # print(len(lid_truth), len(lid_pred), file = output)
+    print(len(lid_truth), len(lid_pred))
+    print(eval.getMetrics(lid_truth, lid_pred), file = output)  
 
 
-print(correctSpa)
-print(correctEn)
-print(wrongSpa)
-print(wrongEn)
-print(other)
+
+
+
+
+                
+
+
