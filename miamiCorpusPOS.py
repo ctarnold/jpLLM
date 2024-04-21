@@ -80,6 +80,7 @@ with open(out_dir, "a") as output:
                 values = line.split()
                 # skip blank lines or placeholder lines
                 if (len(values) <= 3):
+                    print("continued", file = output)
                     continue
                 pos = values[3] #pos at index 3 of each line
                 word = values[1] # word at index 1 of each line
