@@ -39,6 +39,8 @@ def isContraction(word):
 
 # convert token predictions to word predictions
 def tokenToWordPred(message, trueWords):
+    with open(out_dir) as f:
+        print("model reached", file = f)
     posResult = pos_model(message)
     index = 0
     for word in trueWords:
@@ -84,7 +86,7 @@ with open(out_dir, "a") as output:
                 words.append(word)
                 numWords += 1
                 pos_truth.append(pos)
-                print([pos])
+                print(pos)
                 if isContraction:
                     message = message + word
                 else:
