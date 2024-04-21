@@ -46,7 +46,7 @@ def tokenToWordPred(message, trueWords):
         # get the pos predicted for this token and append
         # to the pos word level predictions
         pos = posResult[index].get('entity')
-        pos_pred.append([pos])
+        pos_pred.append(pos)
         # if token word mismatch impossible to handle
         if (word != posToken and word[0] != posToken[0]):
             print("MISMATCH", word, posToken)
@@ -83,7 +83,7 @@ with open(out_dir, "a") as output:
                 word = values[1] # word at index 1 of each line
                 words.append(word)
                 numWords += 1
-                pos_truth.append([pos])
+                pos_truth.append(pos)
                 print([pos])
                 if isContraction:
                     message = message + word
