@@ -58,7 +58,7 @@ def tokenToWordPred(message, trueWords):
             # get rid of # symbols added by tokenizer
             posToken = cleanPoundSign(posToken)
 
-
+checkIndex = 0
 with open(out_dir, "a") as output:
     for file in os.listdir(data_dir):
         if os.path.isdir(data_dir  + '/' + file):
@@ -72,6 +72,9 @@ with open(out_dir, "a") as output:
             words = []
             message = ""
             for line in file:
+                if (checkIndex == 0):
+                    print('reached', file = output)
+                    checkIndex += 1
                 values = line.split()
                 # skip blank lines or placeholder lines
                 if (len(values) <= 3):
