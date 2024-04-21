@@ -91,6 +91,7 @@ with open(out_dir, "a") as output:
                 pos = []
                 words = []
                 message = ""
+print(len(pos_truth), len(pos_pred))
 
 print(eval.getMetrics(pos_truth, pos_pred))  
 
