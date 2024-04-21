@@ -69,7 +69,7 @@ with open(out_dir, "a") as output:
             continue
         # open the current file in the directory
         with open(data_dir  + '/' + file, "r") as read:
-            if (fileCount >= 1):
+            if (fileCount > 1):
                 continue
             fileCount += 1
             numWords = 0
