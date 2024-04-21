@@ -85,15 +85,18 @@ with open(out_dir, "a") as output:
                     message = message + word
                 else:
                     message = message + " " + word
-                # at the end of each line, pass into the model
-                tokenToWordPred(message, words)
-                numWords = 0
-                pos = []
-                words = []
-                message = ""
-print(len(pos_truth), len(pos_pred))
+                # at the end of each sentence, pass into the model
+                if (word == '.'):
+                    tokenToWordPred(message, words)
+                    numWords = 0
+                    pos = []
+                    words = []
+                    message = ""
+    print(len(pos_truth), len(pos_pred), file = output)
+    print(eval.getMetrics(pos_truth, pos_pred), file = output)  
 
-print(eval.getMetrics(pos_truth, pos_pred))  
+
+
 
 
 
