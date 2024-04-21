@@ -57,6 +57,7 @@ def tokenToWordPred(message, trueWords):
             posToken = posToken + posResult[index].get('word')
             # get rid of # symbols added by tokenizer
             posToken = cleanPoundSign(posToken)
+        index += 1
 
 with open(out_dir, "a") as output:
     for file in os.listdir(data_dir):
