@@ -104,6 +104,12 @@ with open(out_dir, "a") as output:
                     lid = []
                     words = []
                     message = ""
+            if (len(message) != 0):
+                tokenToWordPred(message, words)
+                numWords = 0
+                lid = []
+                words = []
+                message = "" 
     # print(lid_truth, file = output)
     # print(lid_pred, file = output)
     # print(len(lid_truth), len(lid_pred), file = output)
