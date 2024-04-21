@@ -34,7 +34,6 @@ def groundCompare(lidResult):
     global words
     global other
 
-   
     index = 0
     groundIndex = 0
     # second way
