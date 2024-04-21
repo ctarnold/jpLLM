@@ -14,8 +14,8 @@ out_dir = '/scratch/gpfs/ca2992/jpLLM/jpLLM/pos_out'
 data_dir = '/scratch/gpfs/ca2992/jpLLM/bangor/crowdsourced_bangor'
 
 pos_model = pipeline('ner', model=model, tokenizer=tokenizer)
-pos_truth = []
-pos_pred = []
+pos_truth = [[]]
+pos_pred = [[]]
 
 # given a token with the '#' symbol,
 # remove the symbol for preprocessing
@@ -46,7 +46,7 @@ def tokenToWordPred(message, trueWords):
         # get the pos predicted for this token and append
         # to the pos word level predictions
         pos = posResult[index].get('entity')
-        pos_pred.append(pos)
+        pos_pred.append([pos])
         # if token word mismatch impossible to handle
         if (word != posToken and word[0] != posToken[0]):
             print("MISMATCH", word, posToken)
@@ -70,7 +70,6 @@ with open(out_dir, "a") as output:
         with open(data_dir  + '/' + file, "r") as read:
             numWords = 0
             words = []
-            pos = []
             message = ""
             for line in file:
                 values = line.split()
@@ -80,15 +79,14 @@ with open(out_dir, "a") as output:
                 pos = values[3] #pos at index 3 of each line
                 word = values[1] # word at index 1 of each line
                 words.append(word)
-                pos.append(pos)
                 numWords += 1
-                pos_truth.append(pos)
+                pos_truth.append([pos])
                 if isContraction:
                     message = message + word
                 else:
                     message = message + " " + word
                 # at the end of each line, pass into the model
-                tokenToWordPred(message, words, pos)
+                tokenToWordPred(message, words)
                 numWords = 0
                 pos = []
                 words = []
