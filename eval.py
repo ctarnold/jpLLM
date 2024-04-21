@@ -5,6 +5,8 @@
 # Page 105
 from seqeval.metrics import classification_report
 
+# I probably could call this wherever I need to
+# rather than make a new file
 def getMetrics(y_true, y_pred):
     return classification_report(y_true, y_pred)
 
