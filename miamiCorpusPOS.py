@@ -108,7 +108,7 @@ with open(out_dir, "a") as output:
     # print(pos_pred, file = output)
     # print(len(pos_truth), len(pos_pred), file = output)
     print(len(pos_truth), len(pos_pred))
-    # print(eval.getMetrics(pos_truth, pos_pred), file = output)  
+    print(eval.getMetrics(pos_truth, pos_pred), file = output)  
 
 
 
