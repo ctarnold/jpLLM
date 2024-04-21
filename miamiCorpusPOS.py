@@ -14,8 +14,8 @@ out_dir = '/scratch/gpfs/ca2992/jpLLM/jpLLM/pos_out'
 data_dir = '/scratch/gpfs/ca2992/jpLLM/bangor/crowdsourced_bangor'
 
 pos_model = pipeline('ner', model=model, tokenizer=tokenizer)
-pos_truth = [[]]
-pos_pred = [[]]
+pos_truth = []
+pos_pred = []
 
 # given a token with the '#' symbol,
 # remove the symbol for preprocessing
