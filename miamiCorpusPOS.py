@@ -17,6 +17,7 @@ pos_model = pipeline('ner', model=model, tokenizer=tokenizer)
 pos_truth = []
 pos_pred = []
 
+
 # given a token with the '#' symbol,
 # remove the symbol for preprocessing
 def cleanPoundSign(word):
@@ -101,10 +102,18 @@ with open(out_dir, "a") as output:
                     pos = []
                     words = []
                     message = ""
+            # get any remaining tokens/words and analyze them
+            if (len(message) != 0):
+                tokenToWordPred(message, words)
+                numWords = 0
+                words = []
+                message = ""
+            # after each file, length of pos_truth == lngth of pos_pred
+            assert len(pos_truth) == len(pos_pred)
+
     # print(pos_truth, file = output)
     # print(pos_pred, file = output)
     # print(len(pos_truth), len(pos_pred), file = output)
-    print(len(pos_truth), len(pos_pred))
     print(eval.getMetrics(pos_truth, pos_pred), file = output)  
 
 
