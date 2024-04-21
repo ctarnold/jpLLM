@@ -39,8 +39,6 @@ def isContraction(word):
 
 # convert token predictions to word predictions
 def tokenToWordPred(message, trueWords):
-    with open(out_dir) as f:
-        print("model reached", file = f)
     posResult = pos_model(message)
     index = 0
     for word in trueWords:
@@ -60,7 +58,6 @@ def tokenToWordPred(message, trueWords):
             # get rid of # symbols added by tokenizer
             posToken = cleanPoundSign(posToken)
 
-checkIndex = 0
 with open(out_dir, "a") as output:
     for file in os.listdir(data_dir):
         if os.path.isdir(data_dir  + '/' + file):
@@ -73,23 +70,20 @@ with open(out_dir, "a") as output:
             numWords = 0
             words = []
             message = ""
-            for line in file:
-                if (checkIndex == 0):
-                    print('reached', file = output)
-                    checkIndex += 1
+            for line in read:
                 values = line.split()
                 # skip blank lines or placeholder lines
                 if (len(values) <= 3):
                     # print(line)
                     continue
-                print(values[0], values[1], values[2], values[3])
-                print(line)
+                # print(values[0], values[1], values[2], values[3])
+                # print(line)
                 pos = values[3] #pos at index 3 of each line
                 word = values[1] # word at index 1 of each line
                 words.append(word)
                 numWords += 1
                 pos_truth.append(pos)
-                print(pos)
+                # print(pos)
                 if isContraction:
                     message = message + word
                 else:
@@ -101,8 +95,8 @@ with open(out_dir, "a") as output:
                     pos = []
                     words = []
                     message = ""
-    print(pos_truth, file = output)
-    print(pos_pred, file = output)
+    # print(pos_truth, file = output)
+    # print(pos_pred, file = output)
     # print(len(pos_truth), len(pos_pred), file = output)
     print(eval.getMetrics(pos_truth, pos_pred), file = output)  
 
