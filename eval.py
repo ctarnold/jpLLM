@@ -4,11 +4,9 @@
 # ISBN: 978-1-098-13679-6
 # Page 105
 from seqeval.metrics import classification_report
-y_true = [[]]
-y_pred = [[]]
-print(classification_report(y_true, y_pred))
 
-
+def getMetrics(y_true, y_pred):
+    return classification_report(y_true, y_pred)
 
 
 
