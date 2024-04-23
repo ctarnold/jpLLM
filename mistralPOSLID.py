@@ -91,10 +91,12 @@ for file in read_list:
 
 with open(out_pos, "a") as f:
     for item in pos_out:
-        print(item + '\t', file = f)
+        print(item, file = f)
+        print('\t', file = f)
 with open(out_lid, "a") as f:
     for item in lid_out:
-        print(item + '\t', file = f)
+        print(item, file = f)
+        print('\t', file = f)
 
 
             
