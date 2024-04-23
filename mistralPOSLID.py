@@ -64,8 +64,11 @@ def extractText(text):
         elif char == ']' and stateInBracket == True:
             stateInBracket = False
             stateInMessage = True
+        elif stateInBracket:
+            continue
         elif stateInMessage:
             out = out + char
+        assert stateInBracket != stateInMessage
     return out
 
 def pos_lid(input):
