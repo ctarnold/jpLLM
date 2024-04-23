@@ -1,10 +1,13 @@
 import os
 import lidCall
+import posCall
 import lidInterpreter
 read_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_415.tsv"
 read_dir_1 = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_415_1.tsv"
-files = [read_dir, read_dir_1]
-out = "/scratch/gpfs/ca2992/jpLLM/bangor/test"
+read_list = [read_dir, read_dir_1] 
+out_pos = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/mistral_greedy_pos.tsv"
+out_lid = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/mistral_greedy_lid.tsv"
+
 
 
 # switch counts based on previous word
@@ -46,9 +49,50 @@ last_lid = ""
         # feed into lid model, tag each word
         # feed into pos model, tag each word
         # count CS occurrences
-with open(read_dir_1, "r") as file:
-    for line in file:
-        print(lidCall.lid(line))
-        print(lidInterpreter.interpret(line, lidCall.lid(line)))
-        break
 
+lid_out = []
+pos_out = []
+# instructions in [INST] [\INST] format:
+def extractText(text):
+    stateInMessage = False
+    stateInBracket = False
+    out = ""
+    for char in text:
+        if char == '[' and stateInBracket == False:
+            stateInBracket = True
+            stateInMessage = False
+        elif char == ']' and stateInBracket == True:
+            stateInBracket = False
+            stateInMessage = True
+        elif stateInMessage:
+            out = out + char
+    return out
+
+def pos_lid(input):
+    t = extractText(input)
+    pos_result = posCall.pos(t)
+    lid_result = lidCall.lid(t)
+    pos_out.append(pos_result)
+    lid_out.append(lid_result)
+
+for file in read_list:
+    with open(file, "r") as f:
+        text = ""
+        for line in file:
+            # if start of new instruction
+            # conduct lid and pos
+            if line[0] == '[':
+                pos_lid(text)
+                text = line
+            else:
+                text = text +  " " + line
+        # account for last examples from last prompt
+        pos_lid(text)
+
+with open(out_pos, "a") as f:
+    print(pos_out + '\t', file = f)
+with open(out_lid, "a") as f:
+    print(lid_out + '\t', file = f)
+
+
+            
