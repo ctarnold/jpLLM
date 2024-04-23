@@ -1,13 +1,10 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
-import pandas as pd
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_id = "/scratch/gpfs/ca2992/Mixtral-8x7B-Instruct-v0.1"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 data_read_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts.tsv"
-data_write_dir = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/prompts_copy.tsv"
-data_write_dir1 = "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_415.tsv"
 messages = []
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -30,29 +27,36 @@ model = AutoModelForCausalLM.from_pretrained(model_id,
 if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 
-
+files = ["/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_0.tsv", 
+         "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_1.tsv",
+         "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_2.tsv",
+         "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_3.tsv",
+         "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_4.tsv"]
+T = [0, 0.25, 0.5, 0.75, 1.0]
 index = 0
-with open(data_write_dir1, "r+") as f: 
-    for message in messages:
-        # first 100 prompts
-        if (index >= 50): 
-            continue
-        text = [{"role": "user", "content": message}]
-        inputs = tokenizer.apply_chat_template(
+
+for file in files:
+    with open(file, "r+") as f:
+        temp = T[index]
+        index = index + 1
+        for prompt in messages:
+            # first 100 prompts
+            text = [{"role": "user", "content": prompt}]
+            inputs = tokenizer.apply_chat_template(
             text, return_tensors="pt").to(device)
-        outputs = model.generate(
-            inputs, max_new_tokens=128, 
-            do_sample = False, pad_token_id=tokenizer.pad_token_id, 
-            no_repeat_ngram_size = 0, top_k = 50)
-
-        
-        output = tokenizer.decode(outputs[0], 
+            outputs = ""
+            if (temp == 0):
+                outputs = model.generate(
+                inputs, max_new_tokens=128, 
+                do_sample = False, pad_token_id=tokenizer.pad_token_id, 
+                no_repeat_ngram_size = 0, top_k = 50)
+            else:
+                outputs = model.generate(
+                inputs, max_new_tokens=128,temperature = temp
+                do_sample = True, pad_token_id=tokenizer.pad_token_id, 
+                no_repeat_ngram_size = 0, top_k = 50)
+            output = tokenizer.decode(outputs[0], 
                                 skip_special_tokens=True)
-        print(output, file = f)
-        print('\t', file = f)
-        index += 1
-
-        
-        
-
+            print(output, file = file)
+            print('\t', file = file)
         
