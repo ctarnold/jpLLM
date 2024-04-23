@@ -39,8 +39,11 @@ for file in files:
     with open(file, "r+") as f:
         temp = T[index]
         index = index + 1
+        promptNum = 0
         for prompt in messages:
             # first 100 prompts
+            if (promptNum > 100):
+                continue
             text = [{"role": "user", "content": prompt}]
             inputs = tokenizer.apply_chat_template(
             text, return_tensors="pt").to(device)
@@ -59,4 +62,5 @@ for file in files:
                                 skip_special_tokens=True)
             print(output, file = file)
             print('\t', file = file)
+            promptNum += 1
         
