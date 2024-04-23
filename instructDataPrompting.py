@@ -42,7 +42,7 @@ for file in files:
         promptNum = 0
         for prompt in messages:
             # first 100 prompts
-            if (promptNum > 100):
+            if (promptNum > 50):
                 continue
             text = [{"role": "user", "content": prompt}]
             inputs = tokenizer.apply_chat_template(
