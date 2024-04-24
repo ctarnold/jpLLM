@@ -118,6 +118,10 @@ with open(out_dir, "a") as output:
     # print(pos_truth, file = output)
     # print(pos_pred, file = output)
     # print(len(pos_truth), len(pos_pred), file = output)
+
+    # note, i can concatenate the pos_truth with the lid_truth
+    # as long as I also concatenate lid_truth with pos_pred
+    # to get stats depending on the language
     print(eval.getMetrics(pos_truth, pos_pred), file = output)  
 
 
