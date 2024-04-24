@@ -16,6 +16,7 @@ data_dir = '/scratch/gpfs/ca2992/jpLLM/bangor/crowdsourced_bangor'
 pos_model = pipeline('ner', model=model, tokenizer=tokenizer)
 pos_truth = []
 pos_pred = []
+lid_truth = []
 
 
 # given a token with the '#' symbol,
@@ -82,6 +83,7 @@ with open(out_dir, "a") as output:
                 # print(values[0], values[1], values[2], values[3])
                 # print(line)
                 pos = values[3] #pos at index 3 of each line
+                lid = values[2] # lid at index 2 of each line
                 word = values[1] # word at index 1 of each line
                 numWords += 1
                 # print(pos)
@@ -95,11 +97,13 @@ with open(out_dir, "a") as output:
                     message = message + " " + word
                     words.append(word)
                     pos_truth.append([pos])
+                    lid_truth.append([lid])
                 # at the end of each sentence, pass into the model
                 if (word == '.'):
                     tokenToWordPred(message, words)
                     numWords = 0
                     pos = []
+                    lid = []
                     words = []
                     message = ""
             # get any remaining tokens/words and analyze them
