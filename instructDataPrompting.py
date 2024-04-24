@@ -39,7 +39,7 @@ for file in files:
     with open(file, "r+") as f:
         temp = T[index]
         # need indices not 0 and not 3
-        if (index != 1):
+        if (index != 2):
             index += 1
             continue
         index = index + 1
