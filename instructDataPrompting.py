@@ -60,7 +60,7 @@ for file in files:
                 no_repeat_ngram_size = 0, top_k = 50)
             output = tokenizer.decode(outputs[0], 
                                 skip_special_tokens=True)
-            print(output, file = file)
-            print('\t', file = file)
+            print(output, file = f)
+            print('\t', file = f)
             promptNum += 1
         
