@@ -38,7 +38,8 @@ index = 0
 for file in files:
     with open(file, "r+") as f:
         temp = T[index]
-        if (index == 0 or index == 3):
+        # need indices not 0 and not 3
+        if (index != 1):
             index += 1
             continue
         index = index + 1
