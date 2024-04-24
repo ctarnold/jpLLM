@@ -39,7 +39,7 @@ for file in files:
     with open(file, "r+") as f:
         temp = T[index]
         index = index + 1
-        if (index != 3):
+        if (index != 4):
             continue
         promptNum = 0
         for prompt in messages:
