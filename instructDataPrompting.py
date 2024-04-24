@@ -38,9 +38,10 @@ index = 0
 for file in files:
     with open(file, "r+") as f:
         temp = T[index]
-        index = index + 1
-        if (index == 3 or index == 0):
+        if (index == 0 or index == 3):
+            index += 1
             continue
+        index = index + 1
         promptNum = 0
         for prompt in messages:
             # first 100 prompts
