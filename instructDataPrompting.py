@@ -27,11 +27,11 @@ model = AutoModelForCausalLM.from_pretrained(model_id,
 if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 
-files = ["/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_0.tsv", 
-         "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_1.tsv",
-         "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_2.tsv",
-         "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_3.tsv",
-         "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_4.tsv"]
+files = ["/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_0_indiv.tsv", 
+         "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_1_indiv.tsv",
+         "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_2_indiv.tsv",
+         "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_3_indiv.tsv",
+         "/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/out_t_4_indiv.tsv"]
 T = [0, 0.25, 0.5, 0.75, 1.0]
 index = 0
 
@@ -39,6 +39,8 @@ for file in files:
     with open(file, "r+") as f:
         temp = T[index]
         index = index + 1
+        if (index != 0):
+            continue
         promptNum = 0
         for prompt in messages:
             # first 100 prompts
