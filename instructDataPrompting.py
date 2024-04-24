@@ -55,7 +55,7 @@ for file in files:
                 no_repeat_ngram_size = 0, top_k = 50)
             else:
                 outputs = model.generate(
-                inputs, max_new_tokens=128,temperature = temp
+                inputs, max_new_tokens=128,temperature = temp,
                 do_sample = True, pad_token_id=tokenizer.pad_token_id, 
                 no_repeat_ngram_size = 0, top_k = 50)
             output = tokenizer.decode(outputs[0], 
