@@ -109,7 +109,7 @@ with open(out_dir, "a") as output:
                     message = ""
             # get any remaining tokens/words and analyze them
             if (len(message) != 0):
-                tokenToWordPred(message, words)
+                tokenToWordPred(message, words, lid)
                 numWords = 0
                 words = []
                 message = ""
