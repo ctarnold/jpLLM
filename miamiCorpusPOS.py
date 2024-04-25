@@ -127,11 +127,12 @@ with open(out_dir, "a") as output:
     # to get stats depending on the language
     print(eval.getMetrics(pos_truth, pos_pred), file = output)  
 
+    assert len(pos_truth) == len(lid_truth)
     index = 0
     error_dict = {}
     correct_dict = {}
     for pred in pos_pred:
-        lid_truth = tuple(lid_truth[index])
+        lid_truth = tuple(lid_truth[index][0])
         truth = pos_truth[index]
         if pred[0] != truth[0]:
             key = (pred[0], lid_truth, tuple(truth))
