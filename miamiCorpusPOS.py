@@ -129,7 +129,7 @@ with open(out_dir, "a") as output:
 
     print("Length of pos_pred:", len(pos_pred))
     print("Length of pos_truth:", len(pos_truth))
-    print("Length of lid_truth:", len(pos_truth))
+    print("Length of lid_truth:", len(lid_truth))
     assert len(pos_truth) == len(lid_truth)
     assert len(pos_pred) == len(pos_truth)
     index = 0
