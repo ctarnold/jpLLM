@@ -61,7 +61,7 @@ def tokenToWordPred(message, trueWords):
             posToken = cleanPoundSign(posToken)
         index += 1
 
-i = 0
+
 with open(out_dir, "a") as output:
     for file in os.listdir(data_dir):
         if os.path.isdir(data_dir  + '/' + file):
@@ -70,9 +70,6 @@ with open(out_dir, "a") as output:
         if(file == "README.md"):
             continue
         # open the current file in the directory
-        i += 1
-        if (i != 2 and i != 3):
-            continue
         with open(data_dir  + '/' + file, "r") as read:
             numWords = 0
             words = []
