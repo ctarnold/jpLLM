@@ -139,7 +139,7 @@ with open(out_dir, "a") as output:
             else:
                 error_dict[str(pred[0]) + " " + str(lid_truth[index])] = 1
         else:
-            if str(pred[0]) + " " + str(lid_truth[index]) in error_dict:
+            if str(pred[0]) + " " + str(lid_truth[index]) in correct_dict:
                 count = correct_dict.get(pred[0] + " " + lid_truth[index])
                 correct_dict[pred[0] + " " + lid_truth[index]] = count + 1
             else:
