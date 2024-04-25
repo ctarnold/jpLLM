@@ -10,7 +10,7 @@ tokenizer_name = '/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince'
 tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
 model = AutoModelForTokenClassification.from_pretrained(model_name)
 
-out_dir = '/scratch/gpfs/ca2992/jpLLM/jpLLM/pos_string_lid_out_test'
+out_dir = '/scratch/gpfs/ca2992/jpLLM/jpLLM/pos_string_lid_out_test_2'
 data_dir = '/scratch/gpfs/ca2992/jpLLM/bangor/crowdsourced_bangor'
 
 pos_model = pipeline('ner', model=model, tokenizer=tokenizer)
@@ -72,7 +72,7 @@ with open(out_dir, "a") as output:
             continue
         # open the current file in the directory
         with open(data_dir  + '/' + file, "r") as read:
-            if (index != 0):
+            if (index != 2 and index != 3):
                 continue
             index += 1
             numWords = 0
