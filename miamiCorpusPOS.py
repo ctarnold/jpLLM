@@ -10,7 +10,7 @@ tokenizer_name = '/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince'
 tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
 model = AutoModelForTokenClassification.from_pretrained(model_name)
 
-out_dir = '/scratch/gpfs/ca2992/jpLLM/jpLLM/pos_out'
+out_dir = '/scratch/gpfs/ca2992/jpLLM/jpLLM/pos_dict_out'
 data_dir = '/scratch/gpfs/ca2992/jpLLM/bangor/crowdsourced_bangor'
 
 pos_model = pipeline('ner', model=model, tokenizer=tokenizer)
