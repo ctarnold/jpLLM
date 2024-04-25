@@ -131,15 +131,17 @@ with open(out_dir, "a") as output:
     error_dict = {}
     correct_dict = {}
     for pred in pos_pred:
-        truth = tuple(pos_truth[index])
+        lid_truth = tuple(lid_truth[index])
+        truth = pos_truth[index]
         if pred[0] != truth[0]:
-            key = (pred[0], truth)
+            key = (pred[0], lid_truth, tuple(truth))
             error_dict[key] = error_dict.get(key, 0) + 1
         else:
-            key = (pred[0], truth)
+            key = (pred[0], lid_truth, tuple(truth))
             correct_dict[key] = correct_dict.get(key, 0) + 1
         index += 1
     print(error_dict, file = output)
+    print('\n\n\n\n', file = output)
     print(correct_dict, file = output)
 
 
