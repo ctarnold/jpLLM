@@ -131,7 +131,7 @@ with open(out_dir, "a") as output:
     error_dict = {}
     correct_dict = {}
     for pred in pos_pred:
-        truth = pos_truth[index]
+        truth = tuple(pos_truth[index])
         if pred[0] != truth[0]:
             key = (pred[0], truth)
             error_dict[key] = error_dict.get(key, 0) + 1
