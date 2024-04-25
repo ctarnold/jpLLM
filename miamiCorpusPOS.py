@@ -133,17 +133,11 @@ with open(out_dir, "a") as output:
     for pred in pos_pred:
         truth = pos_truth[index]
         if pred[0] != truth[0]:
-            if str(pred[0]) + " " + str(lid_truth[index]) in error_dict:
-                count = error_dict.get(str(pred[0]) + " " + str(lid_truth[index]))
-                error_dict[str(pred[0]) + " " + str(lid_truth[index])] = count + 1
-            else:
-                error_dict[str(pred[0]) + " " + str(lid_truth[index])] = 1
+            key = (pred[0], truth)
+            error_dict[key] = error_dict.get(key, 0) + 1
         else:
-            if str(pred[0]) + " " + str(lid_truth[index]) in correct_dict:
-                count = correct_dict.get(pred[0] + " " + lid_truth[index])
-                correct_dict[pred[0] + " " + lid_truth[index]] = count + 1
-            else:
-                correct_dict[pred[0] + " " + lid_truth[index]] = 1
+            key = (pred[0], truth)
+            correct_dict[key] = correct_dict.get(key, 0) + 1
         index += 1
     print(error_dict, file = output)
     print(correct_dict, file = output)
