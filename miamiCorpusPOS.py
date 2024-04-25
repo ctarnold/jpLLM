@@ -10,7 +10,7 @@ tokenizer_name = '/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince'
 tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
 model = AutoModelForTokenClassification.from_pretrained(model_name)
 
-out_dir = '/scratch/gpfs/ca2992/jpLLM/jpLLM/pos_concat_lid_out'
+out_dir = '/scratch/gpfs/ca2992/jpLLM/jpLLM/pos_concat_lid_out_test'
 data_dir = '/scratch/gpfs/ca2992/jpLLM/bangor/crowdsourced_bangor'
 
 pos_model = pipeline('ner', model=model, tokenizer=tokenizer)
@@ -62,7 +62,7 @@ def tokenToWordPred(message, trueWords, lid):
             posToken = cleanPoundSign(posToken)
         index += 1
 
-
+index = 0
 with open(out_dir, "a") as output:
     for file in os.listdir(data_dir):
         if os.path.isdir(data_dir  + '/' + file):
@@ -72,6 +72,9 @@ with open(out_dir, "a") as output:
             continue
         # open the current file in the directory
         with open(data_dir  + '/' + file, "r") as read:
+            if (index != 0):
+                continue
+            index += 1
             numWords = 0
             words = []
             message = ""
