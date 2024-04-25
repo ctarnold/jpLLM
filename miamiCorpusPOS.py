@@ -38,9 +38,11 @@ def isContraction(word):
             return True
     return False
 
+error_dictionary = {}
+count_dictionary = {}
 
 # convert token predictions to word predictions
-def tokenToWordPred(message, trueWords, lid):
+def tokenToWordPred(message, trueWords, lid, pos_ground):
     posResult = pos_model(message)
     index = 0
     for word in trueWords:
@@ -49,7 +51,9 @@ def tokenToWordPred(message, trueWords, lid):
         # to the pos word level predictions
         pos = posResult[index].get('entity')
         # have the pos and the true lid to get pos given lid stats
-        pos_pred.append([str(pos) + str(lid)])
+        pos_pred.append([pos])
+        if (pos != pos_ground):
+            error_dictionary[pos_ground + lid] = error_dictionary[pos_ground +  lid] + 1
         # if token word mismatch impossible to handle
         if (word != posToken and word[0] != posToken[0]):
             print("MISMATCH", word, posToken)
@@ -90,6 +94,12 @@ with open(out_dir, "a") as output:
                 lid = values[2] # lid at index 2 of each line
                 word = values[1] # word at index 1 of each line
                 numWords += 1
+                if (count_dictionary.contains(pos + lid)):
+                    count_dictionary[pos + lid] = count_dictionary[pos + lid] + 1
+                else:
+                    count_dictionary[pos + lid] = 1
+                if (error_dictionary.contains(pos + lid) == False):
+                    error_dictionary[pos + lid] = 0
                 # print(pos)
                 if isContraction(word):
                     # if is a contraction, implicitly use last truth tag
@@ -100,11 +110,11 @@ with open(out_dir, "a") as output:
                     # if it is not a contraction, use the truth tag
                     message = message + " " + word
                     words.append(word)
-                    pos_truth.append([str(pos) + str(lid)])
+                    pos_truth.append([pos])
                     lid_truth.append([lid])
                 # at the end of each sentence, pass into the model
                 if (word == '.'):
-                    tokenToWordPred(message, words, lid)
+                    tokenToWordPred(message, words, lid, pos)
                     numWords = 0
                     pos = []
                     lid = []
@@ -112,7 +122,7 @@ with open(out_dir, "a") as output:
                     message = ""
             # get any remaining tokens/words and analyze them
             if (len(message) != 0):
-                tokenToWordPred(message, words, lid)
+                tokenToWordPred(message, words, lid, pos)
                 numWords = 0
                 words = []
                 message = ""
