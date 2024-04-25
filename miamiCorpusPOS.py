@@ -10,7 +10,7 @@ tokenizer_name = '/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince'
 tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
 model = AutoModelForTokenClassification.from_pretrained(model_name)
 
-out_dir = '/scratch/gpfs/ca2992/jpLLM/jpLLM/pos_cond_lid_out'
+out_dir = '/scratch/gpfs/ca2992/jpLLM/jpLLM/pos_list_lid_out'
 data_dir = '/scratch/gpfs/ca2992/jpLLM/bangor/crowdsourced_bangor'
 
 pos_model = pipeline('ner', model=model, tokenizer=tokenizer)
@@ -49,7 +49,7 @@ def tokenToWordPred(message, trueWords, lid):
         # to the pos word level predictions
         pos = posResult[index].get('entity')
         # have the pos and the true lid to get pos given lid stats
-        pos_pred.append([pos + " " + lid])
+        pos_pred.append([pos, lid])
         # if token word mismatch impossible to handle
         if (word != posToken and word[0] != posToken[0]):
             print("MISMATCH", word, posToken)
@@ -97,7 +97,7 @@ with open(out_dir, "a") as output:
                     # if it is not a contraction, use the truth tag
                     message = message + " " + word
                     words.append(word)
-                    pos_truth.append([pos + " " + lid])
+                    pos_truth.append([pos, lid])
                     lid_truth.append([lid])
                 # at the end of each sentence, pass into the model
                 if (word == '.'):
