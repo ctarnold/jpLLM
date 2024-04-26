@@ -15,7 +15,7 @@ pos_model_name = '/scratch/gpfs/ca2992/codeswitch-spaeng-pos-lince'
 lid_model = pipeline('ner', model=model, tokenizer=tokenizer)
 pos_model = pipeline('ner', model=model, tokenizer = tokenizer)
 
-dir = 'scratch/gpfs/ca2992/jpLLM/jpLLM_Data/'
+dir = '/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/'
 files = ['out_t_0_indiv.tsv',
         'out_t_1_indiv.tsv',
         'out_t_2_indiv.tsv', 
