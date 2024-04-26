@@ -77,7 +77,7 @@ def cleanInstruct(text):
 spanish_count = 0
 english_count = 0
 
-out_dir = 'lang_lid_ratio'
+out_dir = 'lang_lid_ratio_2'
 switch_verb = 0
 switch_noun = 0
 switch_conj = 0
@@ -85,12 +85,13 @@ switch_count = 0
 count = 0
 for file in files:
     with open(dir + file, "r+") as f:
+        message = ""
         for line in f:
             if (line[0] == '['):
-                model_input = cleanInstruct(line)
+                model_input = cleanInstruct(message)
                 lid_results = lid_model(model_input)
                 pos_results = pos_model(model_input)
-                model_input = ""
+                message = ""
                 for i in len(lid_results):
                     count += 1
                     lid = lid_results[i].get('entity')
@@ -114,7 +115,7 @@ for file in files:
                     last_lid = lid
                     last_pos = pos
             else:
-                model_input += line
+                message += line
         with open(dir + out_dir, "a") as o:
             print(file, file = o)
             print(spanish_count, "Spanish Count", file = o)
