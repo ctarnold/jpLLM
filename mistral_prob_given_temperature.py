@@ -77,7 +77,7 @@ def cleanInstruct(text):
 spanish_count = 0
 english_count = 0
 
-out_dir = 'lang_lid_ratio_2'
+out_dir = 'lang_lid_ratio_3'
 switch_verb = 0
 switch_noun = 0
 switch_conj = 0
