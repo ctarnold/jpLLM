@@ -78,7 +78,7 @@ def cleanInstruct(text):
 spanish_count = 0
 english_count = 0
 
-out_dir = 'lang_lid_ratio_3'
+out_dir = 'lang_lid_ratio_4'
 switch_verb = 0
 switch_noun = 0
 switch_conj = 0
@@ -91,7 +91,7 @@ for file in files:
             if (line[0] == '['):
                 model_input = ""
                 if (message == ""):
-                    model_input = cleanInstruct(line[0])
+                    model_input = cleanInstruct(line)
                 else:
                     model_input = cleanInstruct(message)
                 lid_results = lid_model(model_input)
