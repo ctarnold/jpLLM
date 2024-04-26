@@ -73,7 +73,7 @@ def cleanInstruct(text):
 spanish_count = 0
 english_count = 0
 
-out_dir = 'lang_ratio'
+out_dir = 'lang_ratio_2'
 
 for file in files:
     with open(dir + file, "r+") as f:
@@ -88,6 +88,8 @@ for file in files:
                         spanish_count +=1 
                     if (lid == 'en'):
                         english_count += 1
+            else:
+                model_input += line
         with open(dir + out_dir, "a") as f:
             print(file, file = f)
             print(spanish_count, "Spanish Count", file = f)
