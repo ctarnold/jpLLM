@@ -88,7 +88,11 @@ for file in files:
         message = ""
         for line in f:
             if (line[0] == '['):
-                model_input = cleanInstruct(message)
+                model_input = ""
+                if (message == ""):
+                    model_input = cleanInstruct(line[0])
+                else:
+                    model_input = cleanInstruct(message)
                 lid_results = lid_model(model_input)
                 pos_results = pos_model(model_input)
                 message = ""
