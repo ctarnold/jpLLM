@@ -10,10 +10,13 @@ model_name = '/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince'
 tokenizer_name = '/scratch/gpfs/ca2992/codeswitch-spaeng-lid-lince'
 tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
 model = AutoModelForTokenClassification.from_pretrained(model_name)
+lid_model = pipeline('ner', model=model, tokenizer=tokenizer)
+
+
 out_dir = 'mistral_lid_ratios'
 pos_model_name = '/scratch/gpfs/ca2992/codeswitch-spaeng-pos-lince'
-lid_model = pipeline('ner', model=model, tokenizer=tokenizer)
-pos_model = pipeline('ner', model=model, tokenizer = tokenizer)
+pos_model_import = AutoModelForTokenClassification.from_pretrained(pos_model_name)
+pos_model = pipeline('ner', model=pos_model_import, tokenizer = tokenizer)
 
 dir = '/scratch/gpfs/ca2992/jpLLM/jpLLM_Data/'
 files = ['out_t_0_indiv.tsv',
@@ -78,16 +81,16 @@ def cleanInstruct(text):
 spanish_count = 0
 english_count = 0
 
-out_dir = 'lang_lid_ratio_agg_test'
+out_dir = 'lang_lid_ratio_agg_0'
 switch_verb = 0
 switch_noun = 0
 switch_conj = 0
 switch_count = 0
 count = 0
 fileNum = 0
-otherPos = []
+# otherPos = []
 for file in files:
-    if (fileNum != 1):
+    if (fileNum != 0):
         fileNum += 1
         continue
     with open(dir + file, "r+") as f:
@@ -115,8 +118,6 @@ for file in files:
                     switch_noun += 1
                 elif (pos == "CONJ"):
                     switch_conj += 1
-                else:
-                    otherPos.append(pos)
             if (lid == 'spa'):
                 spanish_count +=1 
             if (lid == 'en'):
