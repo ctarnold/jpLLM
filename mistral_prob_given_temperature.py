@@ -84,7 +84,11 @@ switch_noun = 0
 switch_conj = 0
 switch_count = 0
 count = 0
+fileNum = 0
 for file in files:
+    if (fileNum > 0):
+        continue
+    fileNum += 1
     with open(dir + file, "r+") as f:
         message = ""
         for line in f:
@@ -97,7 +101,7 @@ for file in files:
                 lid_results = lid_model(model_input)
                 pos_results = pos_model(model_input)
                 message = ""
-                for i in len(lid_results):
+                for i in range(len(lid_results)):
                     count += 1
                     lid = lid_results[i].get('entity')
                     pos = pos_results[i].get('entity')
@@ -109,9 +113,9 @@ for file in files:
                         switch_count += 1
                         if (pos == "VERB"):
                             switch_verb += 1
-                        if (pos == "NOUN"):
+                        elif (pos == "NOUN"):
                             switch_noun += 1
-                        if (pos == "CONJ"):
+                        elif (pos == "CONJ"):
                             switch_conj += 1
                     if (lid == 'spa'):
                         spanish_count +=1 
