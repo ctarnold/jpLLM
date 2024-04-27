@@ -85,6 +85,7 @@ switch_conj = 0
 switch_count = 0
 count = 0
 fileNum = 0
+
 for file in files:
     if (fileNum != 2):
         fileNum += 1
