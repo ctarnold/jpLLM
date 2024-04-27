@@ -81,11 +81,15 @@ def cleanInstruct(text):
 spanish_count = 0
 english_count = 0
 
-out_dir = 'lang_lid_ratio_agg_4'
+out_dir = 'lang_lid_ratio_cond_0'
 switch_verb = 0
 switch_noun = 0
 switch_conj = 0
 switch_count = 0
+verb_count = 0
+noun_count = 0
+conj_count = 0
+
 count = 0
 fileNum = 0
 # otherPos = []
@@ -110,14 +114,23 @@ for file in files:
                 last_lid = lid
                 last_pos = pos
             # detect code-switching switch
-            if (last_lid != lid):
-                switch_count += 1
-                if (pos == "VERB"):
+            if (pos == 'VERB'):
+                verb_count += 1
+                if (last_lid != lid):
                     switch_verb += 1
-                elif (pos == "NOUN"):
+                    switch_count +=1 
+            elif (pos == 'NOUN'):
+                noun_count += 1
+                if (last_lid != lid):
                     switch_noun += 1
-                elif (pos == "CONJ"):
+                    switch_count+=1
+            elif (pos == 'CONJ'):
+                conj_count +=1
+                if (last_lid != lid):
                     switch_conj += 1
+                    switch_count+=1
+            elif (last_lid != lid):
+                switch_count+=1
             if (lid == 'spa'):
                 spanish_count +=1 
             if (lid == 'en'):
@@ -129,7 +142,6 @@ for file in files:
             print(spanish_count, "Spanish Count", file = o)
             print(english_count, "English Count", file = o)
             print(switch_count, switch_noun, switch_conj, switch_verb, file = o)
-            print(otherPos, file = o)
                 
 
             
