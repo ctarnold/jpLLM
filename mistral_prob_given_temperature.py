@@ -78,7 +78,7 @@ def cleanInstruct(text):
 spanish_count = 0
 english_count = 0
 
-out_dir = 'lang_lid_ratio_7'
+out_dir = 'lang_lid_ratio_agg'
 switch_verb = 0
 switch_noun = 0
 switch_conj = 0
@@ -93,38 +93,33 @@ for file in files:
         message = ""
         for line in f:
             if (line[0] == '['):
-                model_input = ""
-                if (message == ""):
-                    model_input = cleanInstruct(line)
-                else:
-                    model_input = cleanInstruct(message)
-                lid_results = lid_model(model_input)
-                pos_results = pos_model(model_input)
-                message = ""
-                for i in range(len(lid_results)):
-                    count += 1
-                    lid = lid_results[i].get('entity')
-                    pos = pos_results[i].get('entity')
-                    if (i == 0):
-                        last_lid = lid
-                        last_pos = pos
-                    # detect code-switching switch
-                    if (last_lid != lid):
-                        switch_count += 1
-                        if (pos == "VERB"):
-                            switch_verb += 1
-                        elif (pos == "NOUN"):
-                            switch_noun += 1
-                        elif (pos == "CONJ"):
-                            switch_conj += 1
-                    if (lid == 'spa'):
-                        spanish_count +=1 
-                    if (lid == 'en'):
-                        english_count += 1
-                    last_lid = lid
-                    last_pos = pos
+                message = message + cleanInstruct(line)
             else:
                 message += line
+        lid_results = lid_model(message)
+        pos_results = pos_model(message)
+        for i in range(len(lid_results)):
+            count += 1
+            lid = lid_results[i].get('entity')
+            pos = pos_results[i].get('entity')
+            if (i == 0):
+                last_lid = lid
+                last_pos = pos
+            # detect code-switching switch
+            if (last_lid != lid):
+                switch_count += 1
+                if (pos == "VERB"):
+                    switch_verb += 1
+                elif (pos == "NOUN"):
+                    switch_noun += 1
+                elif (pos == "CONJ"):
+                    switch_conj += 1
+            if (lid == 'spa'):
+                spanish_count +=1 
+            if (lid == 'en'):
+                english_count += 1
+            last_lid = lid
+            last_pos = pos
         with open(dir + out_dir, "a") as o:
             print(file, file = o)
             print(spanish_count, "Spanish Count", file = o)
