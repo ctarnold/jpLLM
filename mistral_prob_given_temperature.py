@@ -81,7 +81,7 @@ def cleanInstruct(text):
 spanish_count = 0
 english_count = 0
 
-out_dir = 'lang_lid_ratio_cond_0'
+
 switch_verb = 0
 switch_noun = 0
 switch_conj = 0
@@ -92,9 +92,9 @@ conj_count = 0
 
 count = 0
 fileNum = 0
-# otherPos = []
+out_dir = 'lang_lid_ratio_cond_0'
 for file in files:
-    if (fileNum != 4):
+    if (fileNum != 0):
         fileNum += 1
         continue
     with open(dir + file, "r+") as f:
@@ -137,7 +137,7 @@ for file in files:
                 english_count += 1
             last_lid = lid
             last_pos = pos
-        with open(dir + out_dir, "a") as o:
+        with open(dir + '/byTemp/' + out_dir, "a") as o:
             print(file, file = o)
             print(spanish_count, "Spanish Count", file = o)
             print(english_count, "English Count", file = o)
