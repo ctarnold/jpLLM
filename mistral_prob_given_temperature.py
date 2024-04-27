@@ -142,6 +142,7 @@ for file in files:
             print(spanish_count, "Spanish Count", file = o)
             print(english_count, "English Count", file = o)
             print(switch_count, switch_noun, switch_conj, switch_verb, file = o)
+            print(noun_count,conj_count, verb_count, file = o)
                 
 
             
