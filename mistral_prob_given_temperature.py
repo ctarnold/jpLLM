@@ -85,7 +85,7 @@ switch_conj = 0
 switch_count = 0
 count = 0
 fileNum = 0
-
+otherPos = []
 for file in files:
     if (fileNum != 1):
         fileNum += 1
@@ -115,6 +115,8 @@ for file in files:
                     switch_noun += 1
                 elif (pos == "CONJ"):
                     switch_conj += 1
+                else:
+                    otherPos.append(pos)
             if (lid == 'spa'):
                 spanish_count +=1 
             if (lid == 'en'):
@@ -126,6 +128,7 @@ for file in files:
             print(spanish_count, "Spanish Count", file = o)
             print(english_count, "English Count", file = o)
             print(switch_count, switch_noun, switch_conj, switch_verb, file = o)
+            print(otherPos, file = o)
                 
 
             
