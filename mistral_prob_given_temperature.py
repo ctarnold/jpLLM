@@ -92,11 +92,11 @@ conj_count = 0
 
 count = 0
 fileNum = 0
-out_dir = 'lang_lid_ratio_cond_4'
+out_dir = 'lang_lid_ratio_cond_0'
 with open(dir + '/byTemp/' + out_dir, "a") as o:
     print("success")
 for file in files:
-    if (fileNum != 4):
+    if (fileNum != 0):
         fileNum += 1
         continue
     with open(dir + file, "r+") as f:
