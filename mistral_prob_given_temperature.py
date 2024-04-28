@@ -92,13 +92,14 @@ conj_count = 0
 
 count = 0
 fileNum = 0
-out_dir = 'lang_lid_ratio_cond_0'
+out_dir = 'lang_lid_ratio_cond_0_0'
 with open(dir + '/byTemp/' + out_dir, "a") as o:
     print("success")
 for file in files:
     if (fileNum != 0):
         fileNum += 1
         continue
+    fileNum+=1
     with open(dir + file, "r+") as f:
         message = ""
         for line in f:
@@ -145,6 +146,7 @@ for file in files:
             print(english_count, "English Count", file = o)
             print(switch_count, switch_noun, switch_conj, switch_verb, file = o)
             print(noun_count,conj_count, verb_count, file = o)
+    fileNum+=1
                 
 
             
